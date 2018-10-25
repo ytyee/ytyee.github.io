@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>mysql���ַ�ʽ��װ��������ж�� | Hexo</title>
+  <title>mysql多种方式安装、升级、卸载 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="����һ������ժҪ�����������140�����ڣ��������meta��description����">
+  <meta name="description" content="附加一段文章摘要，字数最好在140字以内，会出现在meta的description里面">
 <meta name="keywords" content="test1">
 <meta property="og:type" content="article">
-<meta property="og:title" content="mysql���ַ�ʽ��װ��������ж��">
-<meta property="og:url" content="http://yoursite.com/2018/10/25/my-first-blog/index.html">
+<meta property="og:title" content="mysql多种方式安装、升级、卸载">
+<meta property="og:url" content="http://yoursite.com/2018/10/25/my-first-blog2/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="����һ������ժҪ�����������140�����ڣ��������meta��description����">
+<meta property="og:description" content="附加一段文章摘要，字数最好在140字以内，会出现在meta的description里面">
 <meta property="og:locale" content="zh-CN.yml">
-<meta property="og:updated_time" content="2018-10-25T07:33:50.862Z">
+<meta property="og:updated_time" content="2018-10-25T08:47:53.361Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="mysql���ַ�ʽ��װ��������ж��">
-<meta name="twitter:description" content="����һ������ժҪ�����������140�����ڣ��������meta��description����">
+<meta name="twitter:title" content="mysql多种方式安装、升级、卸载">
+<meta name="twitter:description" content="附加一段文章摘要，字数最好在140字以内，会出现在meta的description里面">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -155,19 +155,19 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-my-first-blog" class="article article-type-post " itemscope="" itemprop="blogPost">
+            <article id="post-my-first-blog2" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      mysql���ַ�ʽ��װ��������ж��
+      mysql多种方式安装、升级、卸载
     </h1>
   
 
         
-        <a href="/2018/10/25/my-first-blog/" class="archive-article-date">
+        <a href="/2018/10/25/my-first-blog2/" class="archive-article-date">
   	<time datetime="2018-10-25T07:02:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-25</time>
 </a>
         
@@ -175,24 +175,24 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>MySQL��Դ�밲װ�������ư�װ��rpm��װ���ְ�װ��ʽ��<br>Դ�밲װ��ʽ��������󣬿���ָ����װĿ¼������Ŀ¼�ȣ����ҿ����Լ�����mysql�Ĺ��ܺͲ����ֻ��װ��Ҫ��ģ�飬����Ҫ��ģ����Բ��ð�װ�����索������ֻ��װinnodb��Դ�밲װ������cmake���룬��Ϊ���ӣ�������Ҫ��װһЩ��������<br>�����ư�װΪ�ٷ����룬�ȶ�����װ������Լ򵥣�Ҳ����ָ�����Ŀ¼����ֲ�Ըߣ������ɶ�����ع��ܡ�<br>rpm��װ��Ϊ���㡢�򵥣�Ĭ�����ã���û�пɿ��ԣ����ﲻ��������</p>
+        <p>MySQL有源码安装、二进制安装、rpm安装三种安装方式。<br>源码安装方式可用性最大，可以指定安装目录、数据目录等，并且可以自己定制mysql的功能和插件，只安装需要的模块，不需要的模块可以不用安装，例如储存引擎只安装innodb。源码安装过程需cmake编译，较为复杂，并且需要安装一些依赖包。<br>二进制安装为官方编译，稳定，安装过程相对简单，也可以指定相关目录，移植性高；但不可定制相关功能。<br>rpm安装最为方便、简单，默认配置，但没有可控性，这里不做描述。</p>
 <a id="more"></a>
-<p>һ��mysql_5.7�����ư�װ<br>1������mysql glibc��ѹ����</p>
-<p>2����ѹ���ƶ���/usr/local/mysql��������mysql�û�����<br>tar -xzvf mysql-5.7.23-linux-glibc2.12-x86_64.tar.gz<br>mv ./mysql-5.7.23-linux-glibc2.12-x86_64 /usr/local/mysql<br>groupadd mysql<br>useradd -r -g mysql -s /bin/false mysql<br>3������Ŀ¼Ȩ��<br>cd /usr/local/mysql/<br>chown -R mysql:mysql ./<br>4���鿴���ݿ�������Ŀ¼���޸������ļ�<br>cp /usr/local/mysql/support-files/my-default.cnf /etc/my.cnf  </p>
-<p>5������mysql����ű�<br>cp /usr/local/mysql/support-files/mysql.server /etc/init.d/mysqld<br>�޸�basedir�� datadir�� pid_file ����·����my.cnf��Ӧ<br>6����ʼ��ϵͳ���ݿ��ϵͳ��<br>bin/mysqld –defaults-file=/etc/my.cnf –initialize –user=mysql<br>��5.7.6֮ǰ�İ汾ʹ��scripts/mysql_install_db –user=mysql��<br>��ͼ�Ĺٷ��ĵ����˵����</p>
-<p>–initialize  #��ʼ�����룬���������Ļ��<br>���ܱ���<br>FATAL ERROR: please install the following Perl m odules before executing scripts/mysql_install_db:<br>   Data::Dumper<br>���������yum -y install autoconf<br>7�������ݿ�<br>bin/mysqld_safe –user=mysql &amp;<br>���ܱ���<br>Starting MySQL….. ERROR! The server quit without updating PID file (/usr/local/mysql/data/mysqld.pid)<br>ԭ��mysqlû�ж�mysql��Ŀ¼ȡ����ȫȨ��<br>���������chown -R mysql:mysql /usr/local/mysql<br>8�����mysql�����������б�<br>chkconfig –add mysqld<br>chkconfig mysqld on<br>9����mysql/binĿ¼������ӵ�ȫ��·������path</p>
-<p>ʹ����������Ч<br>source /etc/profile<br>10����ӷ�������<br>��service mysqld start ������ļ� /etc/rc.local<br>11����¼<br>��һ�ε�¼���ܻᱨ��<br>ERROR 1862 (HY000): Your password has expired. To log in you must change it using a client that supports expired passwords.<br>��˼�ǳ�ʼ���������ѹ���<br>�������(���޸������ļ���Ҫ����mysqld)��<br>�༭�����ļ�����[mysqld]����skip-grant-tables</p>
-<p>�ɹ���¼���root�����Ϊ�����ڣ�<br>update mysql.user set password_expired=’N’ where user=’root’;<br>�ٴα༭�����ļ���skip-grant-tablesȥ��<br>��¼�޸�root���룺<br>set password for ‘root‘@localhost = PASSWORD(�����롯);</p>
-<p>PS����������ʱ���ϸò�����bin/mysqld_safe –user=mysql –skip-grant-tables &amp;<br>����ֱ�Ӱ�root�����Ϊ�����ڶ������޸������ļ�</p>
-<p>����mysql_5.7Դ�밲װ<br>��mysql5.5��mysqlԴ�밲װ�ı��빤��configure��ʼ��cmake���ɣ�������Ҳûȥ�о�ΪʲôҪ��cmake���������ʹ���֮ǰ��configure��һЩ��װǰ�ļ�顢���õ�һϵ�й�����<br>1��׼������<br>1.1����װ������<br>yum install ncurses-devel libaio-devel gcc gcc-c++ bison -y<br>1.2����װcmake���빤��<br>yum install cmake �Cy<br>1.3������MySQL�û�����<br>groupadd mysql<br>useradd -r -g mysql -s /bin/false mysql<br>1.4������boost��Ŀ¼��cmake����ʱ��Ҫ�õ�<br>mkdir �Cp /usr/local/boost<br>2����������Դ�밲װ��mysql-5.7.23.tar.gz</p>
-<p>3����ѹ������Ŀ¼ʹ��cmake����<br>tar �Czxvf mysql-5.7.23.tar.gz<br>cd mysql-5.7.23<br>��ʼ���룺<br>cmake . -DCMAKE_INSTALL_PREFIX=/usr/local/mysql \<br>-DMYSQL_DATADIR=/data/mydata \<br>-DSYSCONFDIR=/etc \<br>-DMYSQL_UNIX_ADDR=/var/lib/mysql/mysql.sock \<br>-DWITH_INNOBASE_STORAGE_ENGINE=1 \<br>-DWITH_MYISAM_STORAGE_ENGINE=1 \<br>-DWITH_SSL=system \<br>-DWITH_ZLIB=system \<br>-DDEFAULT_CHARSET=utf8 \<br>-DDEFAULT_COLLATION=utf8_general_ci \<br>-DDOWNLOAD_BOOST=1 \<br>-DWITH_BOOST=/usr/local/boost</p>
-<p>����ѡ��˵����<br>-DCMAKE_INSTALL_PREFIX=/usr/local/mysql \       #��mysql��Ŀ¼��<br>-DMYSQL_DATADIR=/data/mydata \                #��mysql����Ŀ¼��<br>-DSYSCONFDIR=/etc \                           #��mysql�����ļ�Ŀ¼��<br>-DMYSQL_UNIX_ADDR= /var/lib/mysql/mysql.sock \     #��mysql.sock����·����,Ĭ����/tmp/mysql.sock��<br>-DWITH_INNOBASE_STORAGE_ENGINE=1 \       #�����밲װINNODB�洢���棩<br>-DWITH_MYISAM_STORAGE_ENGINE=1 \       #�����밲װMYISAM�洢���棩<br>-DWITH_READLINE=1 \       #������readline ���֧���ṩ�ɹ��༭�������У�<br>-DWITH_SSL=system \       # ��SSL֧�ֵ����ͣ�����ʹ��ϵͳ��OpenSSL�⣩<br>-DWITH_ZLIB=system \       #��zlib֧�����ͣ�����ʹ��ϵͳ��zlib�⣩<br>-DDEFAULT_CHARSET=utf8 \             #��Ĭ���ַ����� -DDEFAULT_COLLATION=utf8_general_ci \   #��Ĭ���ַ����룩<br>-DDOWNLOAD_BOOST=1 \     #���Ƿ�����BoostԴ�����������ָ��λ�ã���Ĭ���� OFF��<br>-DWITH_BOOST=/usr/local/boost   #��ָ��Boost��Ŀ¼λ�ã�</p>
-<p>������Щѡ��Ĺٷ�˵����<br><a href="https://dev.mysql.com/doc/refman/5.7/en/source-configuration-options.html#option_cmake_mysql_unix_addr" target="_blank" rel="noopener">https://dev.mysql.com/doc/refman/5.7/en/source-configuration-options.html#option_cmake_mysql_unix_addr</a><br>4�����벢��װ<br>make &amp;&amp; make install<br>5�����á���ʼ��������̵����ĵ�¼�ο����������ư�װ��3-11���裬����Ͳ�����������</p>
-<p>����Դ�뼰�����ư�װ��mysql5.6������5.7<br>    ���û�����ݣ���ֱ��ж�����°�װ���ɡ���Ҫ����ʧ����˳��������ֻҪ���ݺ�ԭ����Ŀ¼�Ͳ�����ʲô���⡣Դ��������Ƶ�������ʽ����һ��������ֻ����Դ����Ҫ�����������ֻ���ѹ���ɡ�<br>��ɹ���ٷ�˵����</p>
-<p>1���ر�mysql�������<br>service mysqld stop<br>2������ԭmysql��Ŀ¼<br>mv /usr/local/mysql /usr/local/mysql_back<br>3-�������ƣ�����ѹ5.7�����ư�ʹ֮��Ϊ�µ�mysql��Ŀ¼<br>tar -xzvf mysql-5.7.23-linux-glibc2.12-x86_64.tar.gz<br>mv ./mysql-5.7.23-linux-glibc2.12-x86_64 /usr/local/mysql<br>3-��Դ�룩����ѹ5.7Դ�밲װ����cmake��make &amp;&amp; make install�����µ�mysql��Ŀ¼<br>tar �Czxvf mysql-5.7.23.tar.gz<br>cd mysql-5.7.23<br>cmake ��<br>make &amp;&amp; make install<br>4������ԭ����Ŀ¼����mysql��Ŀ¼��������Ŀ¼Ȩ��<br>cp -R /usr/local/mysql_back/data /usr/local/mysql/<br>cd /usr/local/mysql/<br>chown -R mysql:mysql .<br>��PS��mysql5.7����log-bin�����������ļ�����server-id��<br>5����mysql���񣬲�ʹ��mysql_upgrade��������<br>bin/mysqld_safe –user=mysql &amp;<br>./bin/mysql_upgrade -uroot<br>6��������ɺ�������Ŀ¼�»�����mysql_upgrade_info��ȷ������������ɾ��ԭ���ݿ�Ŀ¼</p>
-<p>rm -rf  /usr/local/mysql_back<br>7�����ܻ���ֵ�һЩ����<br>7.1�鿴��������־ʱ����ERROR: Error in Log_event::read_log_event(): ‘Sanity check failed’, data_len: 31, event_type: 35<br>���������ϵͳĬ���õ�mysqlbinlog����·��Ϊ/usr/bin/mysqlbinlog�������º��/usr/local/mysql/bin/mysqlbinlog�汾��һ�£���ͼһ��Ϊ3.3һ��Ϊ3.4��</p>
-<p>������������ǵ�ɰ汾��mysqlbinlog<br>cp /usr/local/mysql/bin/mysqlbinlog /usr/bin/mysqlbinlog</p>
-<p>�ġ�ж�ض����Ƽ�Դ�밲װ��mysql<br>1���ر�mysql�������<br>service mysqld stop<br>2��ɾ��mysql��Ŀ¼�������ļ������ļ�<br>rm -rf /usr/local/mysql/<br>rm -rf /etc/my.cnf<br>rm -rf /etc/init.d/mysqld<br>3��ɾ��mysql�û�<br>userdel �Cr mysql</p>
+<p>一、mysql_5.7二进制安装<br>1、下载mysql glibc版压缩包</p>
+<p>2、解压、移动到/usr/local/mysql，并创建mysql用户和组<br>tar -xzvf mysql-5.7.23-linux-glibc2.12-x86_64.tar.gz<br>mv ./mysql-5.7.23-linux-glibc2.12-x86_64 /usr/local/mysql<br>groupadd mysql<br>useradd -r -g mysql -s /bin/false mysql<br>3、设置目录权限<br>cd /usr/local/mysql/<br>chown -R mysql:mysql ./<br>4、查看数据库服务相关目录，修改配置文件<br>cp /usr/local/mysql/support-files/my-default.cnf /etc/my.cnf  </p>
+<p>5、配置mysql服务脚本<br>cp /usr/local/mysql/support-files/mysql.server /etc/init.d/mysqld<br>修改basedir、 datadir、 pid_file 三个路径与my.cnf对应<br>6、初始化系统数据库和系统表<br>bin/mysqld –defaults-file=/etc/my.cnf –initialize –user=mysql<br>（5.7.6之前的版本使用scripts/mysql_install_db –user=mysql）<br>如图的官方文档相关说明：</p>
+<p>–initialize  #初始化密码，会输出到屏幕上<br>可能报错：<br>FATAL ERROR: please install the following Perl m odules before executing scripts/mysql_install_db:<br>   Data::Dumper<br>解决方法：yum -y install autoconf<br>7、启动数据库<br>bin/mysqld_safe –user=mysql &amp;<br>可能报错：<br>Starting MySQL….. ERROR! The server quit without updating PID file (/usr/local/mysql/data/mysqld.pid)<br>原因：mysql没有对mysql主目录取得完全权限<br>解决方法：chown -R mysql:mysql /usr/local/mysql<br>8、添加mysql服务至服务列表<br>chkconfig –add mysqld<br>chkconfig mysqld on<br>9、将mysql/bin目录命令添加到全局路径参数path</p>
+<p>使配置立即生效<br>source /etc/profile<br>10、添加服务自启动<br>将service mysqld start 添加至文件 /etc/rc.local<br>11、登录<br>第一次登录可能会报错：<br>ERROR 1862 (HY000): Your password has expired. To log in you must change it using a client that supports expired passwords.<br>意思是初始化的密码已过期<br>解决步骤(在修改配置文件后都要重启mysqld)：<br>编辑配置文件，在[mysqld]加上skip-grant-tables</p>
+<p>成功登录后把root密码改为不过期：<br>update mysql.user set password_expired=’N’ where user=’root’;<br>再次编辑配置文件把skip-grant-tables去掉<br>登录修改root密码：<br>set password for ‘root‘@localhost = PASSWORD(‘密码’);</p>
+<p>PS：可以在启动时加上该参数：bin/mysqld_safe –user=mysql –skip-grant-tables &amp;<br>即可直接把root密码改为不过期而不用修改配置文件</p>
+<p>二、mysql_5.7源码安装<br>从mysql5.5起，mysql源码安装的编译工具configure开始向cmake过渡；我这里也没去研究为什么要用cmake，反正它就代替之前的configure做一些安装前的检查、配置等一系列工作。<br>1、准备工作<br>1.1、安装依赖包<br>yum install ncurses-devel libaio-devel gcc gcc-c++ bison -y<br>1.2、安装cmake编译工具<br>yum install cmake –y<br>1.3、创建MySQL用户和组<br>groupadd mysql<br>useradd -r -g mysql -s /bin/false mysql<br>1.4、创建boost库目录，cmake编译时需要用到<br>mkdir –p /usr/local/boost<br>2、官网下载源码安装包mysql-5.7.23.tar.gz</p>
+<p>3、解压进到该目录使用cmake编译<br>tar –zxvf mysql-5.7.23.tar.gz<br>cd mysql-5.7.23<br>开始编译：<br>cmake . -DCMAKE_INSTALL_PREFIX=/usr/local/mysql \<br>-DMYSQL_DATADIR=/data/mydata \<br>-DSYSCONFDIR=/etc \<br>-DMYSQL_UNIX_ADDR=/var/lib/mysql/mysql.sock \<br>-DWITH_INNOBASE_STORAGE_ENGINE=1 \<br>-DWITH_MYISAM_STORAGE_ENGINE=1 \<br>-DWITH_SSL=system \<br>-DWITH_ZLIB=system \<br>-DDEFAULT_CHARSET=utf8 \<br>-DDEFAULT_COLLATION=utf8_general_ci \<br>-DDOWNLOAD_BOOST=1 \<br>-DWITH_BOOST=/usr/local/boost</p>
+<p>部分选项说明：<br>-DCMAKE_INSTALL_PREFIX=/usr/local/mysql \       #（mysql主目录）<br>-DMYSQL_DATADIR=/data/mydata \                #（mysql数据目录）<br>-DSYSCONFDIR=/etc \                           #（mysql配置文件目录）<br>-DMYSQL_UNIX_ADDR= /var/lib/mysql/mysql.sock \     #（mysql.sock绝对路径名,默认是/tmp/mysql.sock）<br>-DWITH_INNOBASE_STORAGE_ENGINE=1 \       #（编译安装INNODB存储引擎）<br>-DWITH_MYISAM_STORAGE_ENGINE=1 \       #（编译安装MYISAM存储引擎）<br>-DWITH_READLINE=1 \       #（启用readline 库的支持提供可供编辑的命令行）<br>-DWITH_SSL=system \       # （SSL支持的类型，这里使用系统的OpenSSL库）<br>-DWITH_ZLIB=system \       #（zlib支持类型，这里使用系统的zlib库）<br>-DDEFAULT_CHARSET=utf8 \             #（默认字符集） -DDEFAULT_COLLATION=utf8_general_ci \   #（默认字符编码）<br>-DDOWNLOAD_BOOST=1 \     #（是否下载Boost源（如果它不在指定位置），默认是 OFF）<br>-DWITH_BOOST=/usr/local/boost   #（指定Boost库目录位置）</p>
+<p>关于这些选项的官方说明：<br><a href="https://dev.mysql.com/doc/refman/5.7/en/source-configuration-options.html#option_cmake_mysql_unix_addr" target="_blank" rel="noopener">https://dev.mysql.com/doc/refman/5.7/en/source-configuration-options.html#option_cmake_mysql_unix_addr</a><br>4、编译并安装<br>make &amp;&amp; make install<br>5、配置、初始化、启动过程到最后的登录参考上述二进制安装的3-11步骤，这里就不再做描述。</p>
+<p>三、源码及二进制安装的mysql5.6升级到5.7<br>    如果没有数据，可直接卸载重新安装即可。想要不丢失数据顺利升级，只要备份好原数据目录就不会有什么问题。源码跟二进制的升级方式基本一样，区别只在于源码需要编译而二进制只需解压即可。<br>先晒出官方说明：</p>
+<p>1、关闭mysql服务进程<br>service mysqld stop<br>2、备份原mysql主目录<br>mv /usr/local/mysql /usr/local/mysql_back<br>3-（二进制）、解压5.7二进制包使之成为新的mysql主目录<br>tar -xzvf mysql-5.7.23-linux-glibc2.12-x86_64.tar.gz<br>mv ./mysql-5.7.23-linux-glibc2.12-x86_64 /usr/local/mysql<br>3-（源码）、解压5.7源码安装包做cmake、make &amp;&amp; make install生成新的mysql主目录<br>tar –zxvf mysql-5.7.23.tar.gz<br>cd mysql-5.7.23<br>cmake …<br>make &amp;&amp; make install<br>4、拷贝原数据目录到新mysql主目录，并设置目录权限<br>cp -R /usr/local/mysql_back/data /usr/local/mysql/<br>cd /usr/local/mysql/<br>chown -R mysql:mysql .<br>（PS：mysql5.7若开启log-bin必需在配置文件加上server-id）<br>5、启动mysql服务，并使用mysql_upgrade更新升级<br>bin/mysqld_safe –user=mysql &amp;<br>./bin/mysql_upgrade -uroot<br>6、升级完成后在数据目录下会生成mysql_upgrade_info，确定升级无误后可删除原数据库目录</p>
+<p>rm -rf  /usr/local/mysql_back<br>7、可能会出现的一些问题<br>7.1查看二进制日志时报错：ERROR: Error in Log_event::read_log_event(): ‘Sanity check failed’, data_len: 31, event_type: 35<br>问题分析：系统默认用的mysqlbinlog绝对路径为/usr/bin/mysqlbinlog，跟更新后的/usr/local/mysql/bin/mysqlbinlog版本不一致，如图一个为3.3一个为3.4：</p>
+<p>解决方法：覆盖掉旧版本的mysqlbinlog<br>cp /usr/local/mysql/bin/mysqlbinlog /usr/bin/mysqlbinlog</p>
+<p>四、卸载二进制及源码安装的mysql<br>1、关闭mysql服务进程<br>service mysqld stop<br>2、删除mysql主目录、配置文件、启动文件<br>rm -rf /usr/local/mysql/<br>rm -rf /etc/my.cnf<br>rm -rf /etc/init.d/mysqld<br>3、删除mysql用户<br>userdel –r mysql</p>
 
       
 
@@ -239,7 +239,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/I�Ϸ���//" class="article-tag-list-link color2">Ĭ�Ϸ���</a>
+        			<a href="/categories/默认分类//" class="article-tag-list-link color5">默认分类</a>
         		</li>
       		
 		</ul>
@@ -294,7 +294,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/10/25/my-first-blog/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/10/25/my-first-blog2/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -308,11 +308,15 @@
   
 <nav id="article-nav">
   
-  
-    <a href="/2018/10/25/my-first-blog2/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">mysql多种方式安装、升级、卸载</div>
-      <i class="icon-circle-right"></i>
+    <a href="/2018/10/25/my-first-blog/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          mysql���ַ�ʽ��װ��������ж��
+        
+      </div>
     </a>
+  
   
 </nav>
 
