@@ -6,15 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: test1 | HYY</title>
+  <title>mysql���ַ�ʽ��װ��������ж�� | HYY</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="HYY">
-<meta property="og:url" content="http://yoursite.com/tags/test1/index.html">
+  <meta name="description" content="����һ������ժҪ�����������140�����ڣ��������meta��description����">
+<meta name="keywords" content="test1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql���ַ�ʽ��װ��������ж��">
+<meta property="og:url" content="http://yoursite.com/2018/10/25/test/index.html">
 <meta property="og:site_name" content="HYY">
+<meta property="og:description" content="����һ������ժҪ�����������140�����ڣ��������meta��description����">
 <meta property="og:locale" content="zh-CN.yml">
+<meta property="og:image" content="http://yoursite.com/2018/10/25/test/a.jpg">
+<meta property="og:updated_time" content="2018-10-25T09:23:21.104Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="HYY">
+<meta name="twitter:title" content="mysql���ַ�ʽ��װ��������ж��">
+<meta name="twitter:description" content="����һ������ժҪ�����������140�����ڣ��������meta��description����">
+<meta name="twitter:image" content="http://yoursite.com/2018/10/25/test/a.jpg">
   
     <link rel="alternative" href="/atom.xml" title="HYY" type="application/atom+xml">
   
@@ -150,36 +157,74 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-test" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/10/25/test/" class="archive-article-date">
-  	<time datetime="2018-10-25T09:19:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-25</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/10/25/test/">mysql���ַ�ʽ��װ��������ж��</a>
+    <h1 class="article-title" itemprop="name">
+      mysql���ַ�ʽ��װ��������ж��
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2018/10/25/test/" class="archive-article-date">
+  	<time datetime="2018-10-25T09:19:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-25</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>MySQL��Դ�밲װ�������ư�װ��rpm��װ���ְ�װ��ʽ��<br>Դ�밲װ��ʽ��������󣬿���ָ����װĿ¼������Ŀ¼�ȣ����ҿ����Լ�����mysql�Ĺ��ܺͲ����ֻ��װ��Ҫ��ģ�飬����Ҫ��ģ����Բ��ð�װ�����索������ֻ��װinnodb��Դ�밲װ������cmake���룬��Ϊ���ӣ�������Ҫ��װһЩ��������<br>�����ư�װΪ�ٷ����룬�ȶ�����װ������Լ򵥣�Ҳ����ָ�����Ŀ¼����ֲ�Ըߣ������ɶ�����ع��ܡ�<br>rpm��װ��Ϊ���㡢�򵥣�Ĭ�����ã���û�пɿ��ԣ����ﲻ��������</p>
+<a id="more"></a>
+<p>һ��mysql_5.7�����ư�װ<br>1������mysql glibc��ѹ����</p>
+<p><img src="/2018/10/25/test/a.jpg" alt="����������������"></p>
+<p>2����ѹ���ƶ���/usr/local/mysql��������mysql�û�����<br>tar -xzvf mysql-5.7.23-linux-glibc2.12-x86_64.tar.gz<br>mv ./mysql-5.7.23-linux-glibc2.12-x86_64 /usr/local/mysql<br>groupadd mysql<br>useradd -r -g mysql -s /bin/false mysql<br>3������Ŀ¼Ȩ��<br>cd /usr/local/mysql/<br>chown -R mysql:mysql ./<br>4���鿴���ݿ�������Ŀ¼���޸������ļ�<br>cp /usr/local/mysql/support-files/my-default.cnf /etc/my.cnf  </p>
+<p>5������mysql����ű�<br>cp /usr/local/mysql/support-files/mysql.server /etc/init.d/mysqld<br>�޸�basedir�� datadir�� pid_file ����·����my.cnf��Ӧ<br>6����ʼ��ϵͳ���ݿ��ϵͳ��<br>bin/mysqld –defaults-file=/etc/my.cnf –initialize –user=mysql<br>��5.7.6֮ǰ�İ汾ʹ��scripts/mysql_install_db –user=mysql��<br>��ͼ�Ĺٷ��ĵ����˵����</p>
+<p>–initialize  #��ʼ�����룬���������Ļ��<br>���ܱ���<br>FATAL ERROR: please install the following Perl m odules before executing scripts/mysql_install_db:<br>   Data::Dumper<br>���������yum -y install autoconf<br>7�������ݿ�<br>bin/mysqld_safe –user=mysql &amp;<br>���ܱ���<br>Starting MySQL….. ERROR! The server quit without updating PID file (/usr/local/mysql/data/mysqld.pid)<br>ԭ��mysqlû�ж�mysql��Ŀ¼ȡ����ȫȨ��<br>���������chown -R mysql:mysql /usr/local/mysql<br>8�����mysql�����������б�<br>chkconfig –add mysqld<br>chkconfig mysqld on<br>9����mysql/binĿ¼������ӵ�ȫ��·������path</p>
+<p>ʹ����������Ч<br>source /etc/profile<br>10����ӷ�������<br>��service mysqld start ������ļ� /etc/rc.local<br>11����¼<br>��һ�ε�¼���ܻᱨ��<br>ERROR 1862 (HY000): Your password has expired. To log in you must change it using a client that supports expired passwords.<br>��˼�ǳ�ʼ���������ѹ���<br>�������(���޸������ļ���Ҫ����mysqld)��<br>�༭�����ļ�����[mysqld]����skip-grant-tables</p>
+<p>�ɹ���¼���root�����Ϊ�����ڣ�<br>update mysql.user set password_expired=’N’ where user=’root’;<br>�ٴα༭�����ļ���skip-grant-tablesȥ��<br>��¼�޸�root���룺<br>set password for ‘root‘@localhost = PASSWORD(�����롯);</p>
+<p>PS����������ʱ���ϸò�����bin/mysqld_safe –user=mysql –skip-grant-tables &amp;<br>����ֱ�Ӱ�root�����Ϊ�����ڶ������޸������ļ�</p>
+<p>����mysql_5.7Դ�밲װ<br>��mysql5.5��mysqlԴ�밲װ�ı��빤��configure��ʼ��cmake���ɣ�������Ҳûȥ�о�ΪʲôҪ��cmake���������ʹ���֮ǰ��configure��һЩ��װǰ�ļ�顢���õ�һϵ�й�����<br>1��׼������<br>1.1����װ������<br>yum install ncurses-devel libaio-devel gcc gcc-c++ bison -y<br>1.2����װcmake���빤��<br>yum install cmake �Cy<br>1.3������MySQL�û�����<br>groupadd mysql<br>useradd -r -g mysql -s /bin/false mysql<br>1.4������boost��Ŀ¼��cmake����ʱ��Ҫ�õ�<br>mkdir �Cp /usr/local/boost<br>2����������Դ�밲װ��mysql-5.7.23.tar.gz</p>
+<p>3����ѹ������Ŀ¼ʹ��cmake����<br>tar �Czxvf mysql-5.7.23.tar.gz<br>cd mysql-5.7.23<br>��ʼ���룺<br>cmake . -DCMAKE_INSTALL_PREFIX=/usr/local/mysql \<br>-DMYSQL_DATADIR=/data/mydata \<br>-DSYSCONFDIR=/etc \<br>-DMYSQL_UNIX_ADDR=/var/lib/mysql/mysql.sock \<br>-DWITH_INNOBASE_STORAGE_ENGINE=1 \<br>-DWITH_MYISAM_STORAGE_ENGINE=1 \<br>-DWITH_SSL=system \<br>-DWITH_ZLIB=system \<br>-DDEFAULT_CHARSET=utf8 \<br>-DDEFAULT_COLLATION=utf8_general_ci \<br>-DDOWNLOAD_BOOST=1 \<br>-DWITH_BOOST=/usr/local/boost</p>
+<p>����ѡ��˵����<br>-DCMAKE_INSTALL_PREFIX=/usr/local/mysql \       #��mysql��Ŀ¼��<br>-DMYSQL_DATADIR=/data/mydata \                #��mysql����Ŀ¼��<br>-DSYSCONFDIR=/etc \                           #��mysql�����ļ�Ŀ¼��<br>-DMYSQL_UNIX_ADDR= /var/lib/mysql/mysql.sock \     #��mysql.sock����·����,Ĭ����/tmp/mysql.sock��<br>-DWITH_INNOBASE_STORAGE_ENGINE=1 \       #�����밲װINNODB�洢���棩<br>-DWITH_MYISAM_STORAGE_ENGINE=1 \       #�����밲װMYISAM�洢���棩<br>-DWITH_READLINE=1 \       #������readline ���֧���ṩ�ɹ��༭�������У�<br>-DWITH_SSL=system \       # ��SSL֧�ֵ����ͣ�����ʹ��ϵͳ��OpenSSL�⣩<br>-DWITH_ZLIB=system \       #��zlib֧�����ͣ�����ʹ��ϵͳ��zlib�⣩<br>-DDEFAULT_CHARSET=utf8 \             #��Ĭ���ַ����� -DDEFAULT_COLLATION=utf8_general_ci \   #��Ĭ���ַ����룩<br>-DDOWNLOAD_BOOST=1 \     #���Ƿ�����BoostԴ�����������ָ��λ�ã���Ĭ���� OFF��<br>-DWITH_BOOST=/usr/local/boost   #��ָ��Boost��Ŀ¼λ�ã�</p>
+<p>������Щѡ��Ĺٷ�˵����<br><a href="https://dev.mysql.com/doc/refman/5.7/en/source-configuration-options.html#option_cmake_mysql_unix_addr" target="_blank" rel="noopener">https://dev.mysql.com/doc/refman/5.7/en/source-configuration-options.html#option_cmake_mysql_unix_addr</a><br>4�����벢��װ<br>make &amp;&amp; make install<br>5�����á���ʼ��������̵����ĵ�¼�ο����������ư�װ��3-11���裬����Ͳ�����������</p>
+<p>����Դ�뼰�����ư�װ��mysql5.6������5.7<br>    ���û�����ݣ���ֱ��ж�����°�װ���ɡ���Ҫ����ʧ����˳��������ֻҪ���ݺ�ԭ����Ŀ¼�Ͳ�����ʲô���⡣Դ��������Ƶ�������ʽ����һ��������ֻ����Դ����Ҫ�����������ֻ���ѹ���ɡ�<br>��ɹ���ٷ�˵����</p>
+<p>1���ر�mysql�������<br>service mysqld stop<br>2������ԭmysql��Ŀ¼<br>mv /usr/local/mysql /usr/local/mysql_back<br>3-�������ƣ�����ѹ5.7�����ư�ʹ֮��Ϊ�µ�mysql��Ŀ¼<br>tar -xzvf mysql-5.7.23-linux-glibc2.12-x86_64.tar.gz<br>mv ./mysql-5.7.23-linux-glibc2.12-x86_64 /usr/local/mysql<br>3-��Դ�룩����ѹ5.7Դ�밲װ����cmake��make &amp;&amp; make install�����µ�mysql��Ŀ¼<br>tar �Czxvf mysql-5.7.23.tar.gz<br>cd mysql-5.7.23<br>cmake ��<br>make &amp;&amp; make install<br>4������ԭ����Ŀ¼����mysql��Ŀ¼��������Ŀ¼Ȩ��<br>cp -R /usr/local/mysql_back/data /usr/local/mysql/<br>cd /usr/local/mysql/<br>chown -R mysql:mysql .<br>��PS��mysql5.7����log-bin�����������ļ�����server-id��<br>5����mysql���񣬲�ʹ��mysql_upgrade��������<br>bin/mysqld_safe –user=mysql &amp;<br>./bin/mysql_upgrade -uroot<br>6��������ɺ�������Ŀ¼�»�����mysql_upgrade_info��ȷ������������ɾ��ԭ���ݿ�Ŀ¼</p>
+<p>rm -rf  /usr/local/mysql_back<br>7�����ܻ���ֵ�һЩ����<br>7.1�鿴��������־ʱ����ERROR: Error in Log_event::read_log_event(): ‘Sanity check failed’, data_len: 31, event_type: 35<br>���������ϵͳĬ���õ�mysqlbinlog����·��Ϊ/usr/bin/mysqlbinlog�������º��/usr/local/mysql/bin/mysqlbinlog�汾��һ�£���ͼһ��Ϊ3.3һ��Ϊ3.4��</p>
+<p>������������ǵ�ɰ汾��mysqlbinlog<br>cp /usr/local/mysql/bin/mysqlbinlog /usr/bin/mysqlbinlog</p>
+<p>�ġ�ж�ض����Ƽ�Դ�밲װ��mysql<br>1���ر�mysql�������<br>service mysqld stop<br>2��ɾ��mysql��Ŀ¼�������ļ������ļ�<br>rm -rf /usr/local/mysql/<br>rm -rf /etc/my.cnf<br>rm -rf /etc/init.d/mysqld<br>3��ɾ��mysql�û�<br>userdel �Cr mysql</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -191,7 +236,7 @@
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -204,66 +249,104 @@
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/10/25/test/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/10/25/my-first-blog2/" class="archive-article-date">
-  	<time datetime="2018-10-25T07:02:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-25</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2018/10/25/my-first-blog2/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">mysql多种方式安装、升级、卸载</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/10/25/my-first-blog2/">mysql多种方式安装、升级、卸载</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">test1</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/默认分类//" class="article-tag-list-link color5">默认分类</a>
-        		</li>
-      		
-		</ul>
-	</div>
+        
+        
+    </div>
+</aside>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+
   
   
-    </div></section>
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -286,9 +369,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
