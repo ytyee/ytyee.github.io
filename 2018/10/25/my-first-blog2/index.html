@@ -16,12 +16,12 @@
 <meta property="og:site_name" content="HYY">
 <meta property="og:description" content="附加一段文章摘要，字数最好在140字以内，会出现在meta的description里面">
 <meta property="og:locale" content="zh-CN.yml">
-<meta property="og:image" content="http://yoursite.com/2018/10/25/my-first-blog2/test/a.jpg">
-<meta property="og:updated_time" content="2018-10-25T09:26:15.760Z">
+<meta property="og:image" content="http://yoursite.com/2018/10/25/my-first-blog2/a.jpg">
+<meta property="og:updated_time" content="2018-10-25T09:39:37.087Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql多种方式安装、升级、卸载">
 <meta name="twitter:description" content="附加一段文章摘要，字数最好在140字以内，会出现在meta的description里面">
-<meta name="twitter:image" content="http://yoursite.com/2018/10/25/my-first-blog2/test/a.jpg">
+<meta name="twitter:image" content="http://yoursite.com/2018/10/25/my-first-blog2/a.jpg">
   
     <link rel="alternative" href="/atom.xml" title="HYY" type="application/atom+xml">
   
@@ -180,7 +180,7 @@
         <p>MySQL有源码安装、二进制安装、rpm安装三种安装方式。<br>源码安装方式可用性最大，可以指定安装目录、数据目录等，并且可以自己定制mysql的功能和插件，只安装需要的模块，不需要的模块可以不用安装，例如储存引擎只安装innodb。源码安装过程需cmake编译，较为复杂，并且需要安装一些依赖包。<br>二进制安装为官方编译，稳定，安装过程相对简单，也可以指定相关目录，移植性高；但不可定制相关功能。<br>rpm安装最为方便、简单，默认配置，但没有可控性，这里不做描述。</p>
 <a id="more"></a>
 <p>一、mysql_5.7二进制安装<br>1、下载mysql glibc版压缩包</p>
-<p><img src="/2018/10/25/my-first-blog2/test/a.jpg" alt="你想输入的替代文字"></p>
+<p><img src="/2018/10/25/my-first-blog2/a.jpg" alt="你想输入的替代文字"></p>
 <p>2、解压、移动到/usr/local/mysql，并创建mysql用户和组<br>tar -xzvf mysql-5.7.23-linux-glibc2.12-x86_64.tar.gz<br>mv ./mysql-5.7.23-linux-glibc2.12-x86_64 /usr/local/mysql<br>groupadd mysql<br>useradd -r -g mysql -s /bin/false mysql<br>3、设置目录权限<br>cd /usr/local/mysql/<br>chown -R mysql:mysql ./<br>4、查看数据库服务相关目录，修改配置文件<br>cp /usr/local/mysql/support-files/my-default.cnf /etc/my.cnf  </p>
 <p>5、配置mysql服务脚本<br>cp /usr/local/mysql/support-files/mysql.server /etc/init.d/mysqld<br>修改basedir、 datadir、 pid_file 三个路径与my.cnf对应<br>6、初始化系统数据库和系统表<br>bin/mysqld –defaults-file=/etc/my.cnf –initialize –user=mysql<br>（5.7.6之前的版本使用scripts/mysql_install_db –user=mysql）<br>如图的官方文档相关说明：</p>
 <p>–initialize  #初始化密码，会输出到屏幕上<br>可能报错：<br>FATAL ERROR: please install the following Perl m odules before executing scripts/mysql_install_db:<br>   Data::Dumper<br>解决方法：yum -y install autoconf<br>7、启动数据库<br>bin/mysqld_safe –user=mysql &amp;<br>可能报错：<br>Starting MySQL….. ERROR! The server quit without updating PID file (/usr/local/mysql/data/mysqld.pid)<br>原因：mysql没有对mysql主目录取得完全权限<br>解决方法：chown -R mysql:mysql /usr/local/mysql<br>8、添加mysql服务至服务列表<br>chkconfig –add mysqld<br>chkconfig mysqld on<br>9、将mysql/bin目录命令添加到全局路径参数path</p>
