@@ -6,15 +6,26 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>HYY</title>
+  <title>关于keepalived+haproxy+mycat架构深入理解 | HYY</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="HYY">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="关于keepalived+haproxy+mycat架构深入理解">
+<meta name="keywords" content="mycat">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于keepalived+haproxy+mycat架构深入理解">
+<meta property="og:url" content="http://yoursite.com/2018/03/01/关于keepalived+haproxy+mycat架构深入理解/index.html">
 <meta property="og:site_name" content="HYY">
+<meta property="og:description" content="关于keepalived+haproxy+mycat架构深入理解">
 <meta property="og:locale" content="zh-CN.yml">
+<meta property="og:image" content="http://yoursite.com/2018/03/01/关于keepalived+haproxy+mycat架构深入理解/image001.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/01/关于keepalived+haproxy+mycat架构深入理解/image002.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/01/关于keepalived+haproxy+mycat架构深入理解/image003.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/01/关于keepalived+haproxy+mycat架构深入理解/image004.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/01/关于keepalived+haproxy+mycat架构深入理解/image005.png">
+<meta property="og:updated_time" content="2018-12-20T07:58:20.174Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="HYY">
+<meta name="twitter:title" content="关于keepalived+haproxy+mycat架构深入理解">
+<meta name="twitter:description" content="关于keepalived+haproxy+mycat架构深入理解">
+<meta name="twitter:image" content="http://yoursite.com/2018/03/01/关于keepalived+haproxy+mycat架构深入理解/image001.png">
   
     <link rel="alternative" href="/atom.xml" title="HYY" type="application/atom+xml">
   
@@ -144,16 +155,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-关于keepalived+haproxy+mycat架构深入理解" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+            <article id="post-关于keepalived+haproxy+mycat架构深入理解" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/01/关于keepalived+haproxy+mycat架构深入理解/">关于keepalived+haproxy+mycat架构深入理解</a>
+    <h1 class="article-title" itemprop="name">
+      关于keepalived+haproxy+mycat架构深入理解
     </h1>
   
 
@@ -167,12 +176,109 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>1、为什么需要haroxy<br>haroxy官方定义如下：<br>HAProxy是一种免费的、非常快速和可靠的解决方案，它提供了高可用性、负载平衡和对TCP和基于http的应用程序的代理。它特别适用于非常高的流量网站，并且拥有相当多的世界上最受欢迎的网站。多年来，它已经成为事实上的标准的opensource负载平衡器，现在已经与大多数主流的Linux发行版一起发布，并且经常在云平台上默认部署</p>
-<p>实际上mycat本身也可以直接搭配keepalived来做高可用，如果不搭配haproxy，那么永远只有一台mycat是可用状态，其他的只是做灾备用。haproxy主要作用是mycat的负载均衡以及高可用。<br>附带一提：haproxy官网默认的下载地址<a href="http://www.haproxy.org/download打不开，网上各种搜到的也不行；于是自己试了加了认证https://www.haproxy.org/download成功打开。" target="_blank" rel="noopener">http://www.haproxy.org/download打不开，网上各种搜到的也不行；于是自己试了加了认证https://www.haproxy.org/download成功打开。</a><br></p>
-        
-          <a class="article-more-a" href="/2018/03/01/关于keepalived+haproxy+mycat架构深入理解/#more">more >></a>
-        
+<p>实际上mycat本身也可以直接搭配keepalived来做高可用，如果不搭配haproxy，那么永远只有一台mycat是可用状态，其他的只是做灾备用。haproxy主要作用是mycat的负载均衡以及高可用。<br>附带一提：haproxy官网默认的下载地址<a href="http://www.haproxy.org/download打不开，网上各种搜到的也不行；于是自己试了加了认证https://www.haproxy.org/download成功打开。" target="_blank" rel="noopener">http://www.haproxy.org/download打不开，网上各种搜到的也不行；于是自己试了加了认证https://www.haproxy.org/download成功打开。</a><br><a id="more"></a></p>
+<p>2、为什么需要xinetd这个东西<br>2.1、首先haproxy默认给出的后端健康检查方式为httpchk，分如下几种：<br>option httpchk<br>option httpchk&lt; url &gt;<br>option httpchk&lt; method &gt; &lt; url &gt;<br>option httpchk&lt; method &gt; &lt; url &gt; &lt; version &gt;<br>2.2、采用xinetd的原理是，给mycat的服务器上运行一个端口为48700的服务，这个服务监控着mycat进程的状态，一旦mycat进程不可用，那么就会给前端返回503参数，如图：</p>
+<p><img src="/2018/03/01/关于keepalived+haproxy+mycat架构深入理解/image001.png" alt=""> </p>
+<p>2.3、附上48700端口服务的配置文件/etc/xinetd.d/mycat_status内容：</p>
+<p>service mycat_status<br>{<br>        flags          = REUSE<br>        socket_type          = stream<br>        port           = 48700<br>        wait           = no<br>        user           = root<br>        server          =/usr/local/bin/mycat_status<br>        log_on_failure  += USERID<br>        disable          = no<br>}</p>
+<p>2.4、可以看出这个进程服务对象就是/usr/local/bin/mycat_status这个脚本，内容如下：</p>
+<p>#!/bin/bash</p>
+<p>mycat=<code>/usr/local/mycat/bin/mycat status | grep&#39;not running&#39; | wc -l</code><br>if [ “$mycat” = “0” ];<br>then<br>  /bin/echo-e “HTTP/1.1 200 OK\r\n”<br> else<br>  /bin/echo-e “HTTP/1.1 503 Service Unavailable\r\n”<br>fi</p>
+<p>2.5、我们无法采用httpchk方式直接去检测mycat的8066端口是否存活，因为mycat代理的是mysql的服务，而mysql客户端连接服务器用的是mysql本身制订的通信协议（个人理解为类似API方式）；那么haproxy健康检查方式难道只有httpchk了吗？当然不是，haproxy自带了一个专门针对mysql健康检查的一个配置选项，如下：<br>option mysql-check user username<br>这里的username对应的是mysql真实存在的一个用户，必须是无密码的。<br>2.6、官方文档给出的信息如下：</p>
+<p><img src="/2018/03/01/关于keepalived+haproxy+mycat架构深入理解/image002.png" alt=""><br><img src="/2018/03/01/关于keepalived+haproxy+mycat架构深入理解/image003.png" alt=""> </p>
+<p>可以看出还有针对其他类型的健康检查，比如pgsql。<br>2.7、但是我们也不能使用mysql-check直接对mycat进行检测，首先我在mycat跟haproxy配置好了后haproxy是无法正常访问后端的，其次即使能成功，此时健康检查的目标也不是mycat而是最后端的mysql了。</p>
+<p>3、关于keepalived</p>
+<p>keepalived是以VRRP协议为实现基础的，VRRP全称Virtual Router Redundancy Protocol，即虚拟路由冗余协议。<br>虚拟路由冗余协议，可以认为是实现路由器高可用的协议，即将N台提供相同功能的路由器组成一个路由器组，这个组里面有一个master和多个backup，master上面有一个对外提供服务的vip（该路由器所在局域网内其他机器的默认路由为该vip），master会发组播，当backup收不到vrrp包时就认为master宕掉了，这时就需要根据VRRP的优先级来选举一个backup当master。这样的话就可以保证路由器的高可用了。</p>
+<p>3.1、先附上keepalived.conf常规配置及说明</p>
+<p>! Configuration File for keepalived</p>
+<p>############################ 全局配置 ############################</p>
+<p>global_defs {</p>
+<pre><code>notification_email {
+    hongxue@showjoy.com  # 发生诸如切换操作时邮件告警地址，可以定义多个，每行一个。这个功能有点鸡肋，keepalived死掉也没法发了，可以用在vrrp_script定义的脚本里面触发发邮件的功能
+}
+
+notification_email_from keepalived@showjoy.com  # 邮件发送源地址
+</code></pre><p>smtp_server 127.0.0.1  # SMTP Server地址</p>
+<pre><code>smtp_connect_timeout 30 # SMTP Server的超时时间
+
+router_id keepalived_1 # 标识机器名 
+</code></pre><p>}</p>
+<p>############################ VRRP配置 ############################</p>
+<h1 id="定义检测-haproxy-状态的脚本"><a href="#定义检测-haproxy-状态的脚本" class="headerlink" title="定义检测 haproxy 状态的脚本"></a>定义检测 haproxy 状态的脚本</h1><p>vrrp_script chk_haproxy {</p>
+<pre><code>script &quot;/etc/keepalived/haproxy_check.sh&quot; # 检测 haproxy 状态的脚本路径
+
+interval 10 # 检测时间间隔
+
+weight 2 # 权重
+</code></pre><p>}</p>
+<h1 id="定义虚拟路由，-K-1-为虚拟路由的标示符，自己定义名称"><a href="#定义虚拟路由，-K-1-为虚拟路由的标示符，自己定义名称" class="headerlink" title="定义虚拟路由， K_1 为虚拟路由的标示符，自己定义名称"></a>定义虚拟路由， K_1 为虚拟路由的标示符，自己定义名称</h1><p>vrrp_instance K_1 {</p>
+<pre><code>state MASTER # 指定当前主机的的角色，MASTER表示是主，BACKUP表示备用；个人测试此参数没有实际功能，只作标识用
+</code></pre><p>interface eth0 # 实际监控的网卡</p>
+<h1 id="notify-master-data-sh-keepalived-check-sh-当该节点切换为MASTER状态时执行的脚本"><a href="#notify-master-data-sh-keepalived-check-sh-当该节点切换为MASTER状态时执行的脚本" class="headerlink" title="notify_master /data/sh/keepalived_check.sh # 当该节点切换为MASTER状态时执行的脚本"></a>notify_master /data/sh/keepalived_check.sh # 当该节点切换为MASTER状态时执行的脚本</h1><p>virtual_router_id 1 # 相同的 VRID 为一个组，他将决定多播的 MAC 地址</p>
+<pre><code>priority 100 # 设置本节点优先级，范围[0-254]，高的为MASTER，如果优先级一样，则IP地址大的是MASTER
+</code></pre><p>nopreempt # 主要作用于master服务死掉又恢复时不抢占VIP</p>
+<pre><code>advert_int 1 # 组播信息发送间隔，默认1s，两个节点设置必须一样
+</code></pre><h1 id="验证方式与验证密码，两个节点必须一致"><a href="#验证方式与验证密码，两个节点必须一致" class="headerlink" title="验证方式与验证密码，两个节点必须一致"></a>验证方式与验证密码，两个节点必须一致</h1><pre><code>authentication {
+    auth_type PASS
+    auth_pass 1111
+}
+</code></pre><h1 id="上面定义的vrrp-script脚本加入到vrrp-instance选项中来"><a href="#上面定义的vrrp-script脚本加入到vrrp-instance选项中来" class="headerlink" title="上面定义的vrrp_script脚本加入到vrrp_instance选项中来"></a>上面定义的vrrp_script脚本加入到vrrp_instance选项中来</h1><pre><code>track_script {
+    chk_haproxy
+</code></pre><p>}</p>
+<h1 id="虚拟-IP-池，即外部访问的地址，两个节点设置必须一样，可以定义多个，每行一个"><a href="#虚拟-IP-池，即外部访问的地址，两个节点设置必须一样，可以定义多个，每行一个" class="headerlink" title="虚拟 IP 池，即外部访问的地址，两个节点设置必须一样，可以定义多个，每行一个"></a>虚拟 IP 池，即外部访问的地址，两个节点设置必须一样，可以定义多个，每行一个</h1><p>virtual_ipaddress {</p>
+<pre><code>192.168.209.130  
+</code></pre><p>}</p>
+<p>}</p>
+<p>3.2、对于vrrp_script，官方说明文档如下：</p>
+<p>vrrp_script <string> {           # VRRP script declaration<br>script &lt;QUOTED_STRING&gt;    # script to run periodically<br>interval <integer>          # run the script this every seconds<br>weight <a href="INTEGER:-254..254" target="_blank" rel="noopener">INTEGER:-254..254</a>   # adjust priority by this weight<br>fall <integer>              # required number of failures for OK switch<br>rise <integer>              # required number of successes for OK switch<br>}<br>   The script will be executed periodically, every <interval> seconds. Its exit code will be recorded for all VRRP instances which will want to monitor it. Note that the script will only be executed if at least one VRRP instance monitors it with a non-zero weight. Thus, any number of scripts may be declared without taking the system down.<br>   If unspecified, the weight equals 2, which means that a success will add +2 to the priority of all VRRP instances which monitor it. On the opposite, a negative weight will be subtracted from the initial priority in case of failure.</interval></integer></integer></integer></string></p>
+<p>3.3、个人整理出两种VIP漂移模式，根据服务器环境去选择，主要区别于haproxy_check.sh脚本的不同</p>
+<p>3.4、第一种情况是主机上只运行着单个keepalived服务，当haproxy不可用时，直接kill掉本机的keepalived服务，使得VIP漂移</p>
+<p>3.5、附上脚本</p>
+<p>#!/bin/bash</p>
+<p>log_file=”/usr/local/keepalived/haproxy_check.log”<br>date=<code>date &#39;+%F_%H_%M&#39;</code></p>
+<p>if [ <code>ps -C haproxy --no-header |wc -l</code> -eq 0 ];then<br>killall keepalived</p>
+<p>#记录切换日志<br>echo “date” &gt;&gt; $ log_file<br>echo “haproxy is stopped, killall keepalived!” &gt;&gt; $ log_file<br>echo “ “ &gt;&gt; $ log_file<br>fi</p>
+<p>3.6、需注意的地方：<br>（一）必须先启动MASTER再启动BACKUP，因为MASTER设置了nopreempt。<br>（二）MASTER死掉重启时，先启动haproxy在启动keepalived</p>
+<p>3.7、第二种配置主要针对一台机器运行着几个keepalived服务（virtual_router_id不同）的情况，根据设定的priority及weight对组传播的优先级值产生变化，使得VIP漂移。</p>
+<p>3.8、附上脚本：</p>
+<p>#!/bin/bash</p>
+<p>log_file=”/usr/local/keepalived/haproxy_check.log”<br>date=<code>date &#39;+%F_%H_%M&#39;</code></p>
+<p>if [ <code>ps -C haproxy --no-header |wc -l</code> -eq 0 ];then<br>echo “date” &gt;&gt; $ log_file<br>echo “haproxy is stopped, vip shift!” &gt;&gt; $ log_file<br>echo “ “ &gt;&gt; $ log_file<br>exit 1<br>else<br>exit 0<br>fi</p>
+<p>3.9、以下为组传播的优先级值变化的实际逻辑：<br>当weight&gt;0（可用weight =20、priorit=90搭配weight =40、priorit=80去测）<br>执行结果为0（即haproxy可用），组传播的优先级值=priority+ weight<br>执行结果为1（即haproxy不可用），组传播的优先级值= priority</p>
+<p>当weight&lt;0（可用weight =-20、priorit=70搭配weight= -40、priorit=80去测）<br>执行结果为0（即haproxy可用），组传播的优先级值= priority<br>执行结果为1（即haproxy不可用），组传播的优先级值= priority+weight</p>
+<p>3.10、需注意的地方：<br>（一）不能设置nopreempt；打个比方，主机M的haproxy不可用，使得VIP飘到B，此后M恢复了，接着B不可用，但由于M设置了nopreempt，VIP无法漂移到M，然后……就没有然后了……<br>（二）组传播的优先级值以配置好的priority及weight去计算，不会不断的提高或者降低<br>（三）组传播的优先级值保持的范围在[1,254]，不会有优先级小于等于0或者优先级大于等于255的情况出现<br>（四）官方文档有句If unspecified, the weight equals 2说的是默认权重是2，但本人用了各种方式去测试结果表明：在没设置weight或者weight=0的情况下，无论主备机的priorit设置值相差多少，只要其中一台机器的执行结果为1（即haproxy不可用），就会发生VIP漂移。</p>
+<p>4、关于rsyslog<br>4.1、默认情况下 haproxy是不记录日志的，如果需要记录日志，还需要配置系统的syslog，在linux系统中是rsyslog服务。syslog服务器可以用作一个网络中的日志监控中心，rsyslog是一个开源工具，被广泛用于Linux系统以通过TCP/UDP协议转发或接收日志消息。</p>
+<p>4.2、配置rsyslog服务：vim /etc/rsyslog.conf<br>把 $ModLoad imudp 和 $UDPServerRun 514前面的 # 去掉<br>$ModLoad imudp ## 是模块名，支持UDP协议<br>$UDPServerRun 514表示514端口接收使用UDP和TCP协议转发过来的日志，<br>而rsyslog在默认情况下，正是在514端口监听UDP<br>确认 #### GLOBAL DIRECTIVES #### 段中是否有 $IncludeConfig /etc/rsyslog.d/*.conf没有则增加上此配置，如图： </p>
+<p><img src="/2018/03/01/关于keepalived+haproxy+mycat架构深入理解/image004.png" alt=""> </p>
+<p>4.3、个人理解为UDP和TCP协议转发过来的日志会根据/etc/rsyslog.d/*.conf配置存入指定文件，如下图日志存入/var/log/haproxy.log这个文件</p>
+<p><img src="/2018/03/01/关于keepalived+haproxy+mycat架构深入理解/image005.png" alt=""> </p>
+<p>如果不加上面的的”&amp;~”配置，则除了在/var/log/haproxy.log中写入日志外，也会写入/var/log/message文件中。<br>配置保存后重启rsyslog服务：service rsyslog restart<br>等到HAProxy服务启动后，就能在/var/log/haproxy.log中看到日志了</p>
+<p>4.4、配置系统内核的IP包转发功能vim /etc/sysctl.conf</p>
+<p>开启net.ipv4.ip_forward = 1</p>
+
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -203,16 +309,75 @@
 
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/03/01/关于keepalived+haproxy+mycat架构深入理解/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/03/01/关于keepalived+haproxy+mycat架构深入理解/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2018/02/15/关于mycat配置文件scheme.xml的dataHost标签深入理解/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">关于mycat配置文件scheme.xml的dataHost标签深入理解</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -232,357 +397,14 @@
 
 
 
-
   
-    <article id="post-关于mycat配置文件scheme.xml的dataHost标签深入理解" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/02/15/关于mycat配置文件scheme.xml的dataHost标签深入理解/">关于mycat配置文件scheme.xml的dataHost标签深入理解</a>
-    </h1>
   
 
-        
-        <a href="/2018/02/15/关于mycat配置文件scheme.xml的dataHost标签深入理解/" class="archive-article-date">
-  	<time datetime="2018-02-15T12:20:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>首先得搞清楚，balance项是控制读而writeType是控制写的，如下图为官方文档截图（有点小问题）</p>
-<p><img src="/2018/02/15/关于mycat配置文件scheme.xml的dataHost标签深入理解/image001.png" alt=""><br></p>
-        
-          <a class="article-more-a" href="/2018/02/15/关于mycat配置文件scheme.xml的dataHost标签深入理解/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mycat</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/database//" class="article-tag-list-link color4">database</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/02/15/关于mycat配置文件scheme.xml的dataHost标签深入理解/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-mysql误删除数据后的恢复策略" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/02/09/mysql误删除数据后的恢复策略/">mysql误删除数据后的恢复策略</a>
-    </h1>
   
 
-        
-        <a href="/2018/02/09/mysql误删除数据后的恢复策略/" class="archive-article-date">
-  	<time datetime="2018-02-09T01:33:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>一、系统环境配置情况<br>系统环境： Linux 2.6.32-754.3.5.el6.x86_64<br>数据库环境：mysql 5.7.23<br>日志格式： MIXED<br>gtid：启用<br>备份策略：利用xtrabackup每天凌晨00:00自动完全备份<br></p>
-        
-          <a class="article-more-a" href="/2018/02/09/mysql误删除数据后的恢复策略/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/database//" class="article-tag-list-link color4">database</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/02/09/mysql误删除数据后的恢复策略/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-redis安装文档" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/28/redis安装文档/">redis安装文档</a>
-    </h1>
   
 
-        
-        <a href="/2018/01/28/redis安装文档/" class="archive-article-date">
-  	<time datetime="2018-01-28T03:35:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>一、    下载源码包并解压编译<br>redis官网地址：<a href="http://www.redis.io/" target="_blank" rel="noopener">http://www.redis.io/</a><br>tar xf redis-stable.tar.gz<br>cd redis-stable<br>make<br>编译完成后，在src目录下，有3个可执行文件redis-server、redis-benchmark、redis-cli。然后拷贝到redis目录下。<br>mkdir /usr/local/redis<br>cp redis-server redis-benchmark redis-cli /usr/local/redis<br>拷贝配置文件到redis目录下<br>cp  redis.conf  /usr/local/redis<br></p>
-        
-          <a class="article-more-a" href="/2018/01/28/redis安装文档/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/database//" class="article-tag-list-link color4">database</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/01/28/redis安装文档/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-mysql多种方式安装、升级、卸载" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/25/mysql多种方式安装、升级、卸载/">mysql多种方式安装、升级、卸载</a>
-    </h1>
-  
-
-        
-        <a href="/2018/01/25/mysql多种方式安装、升级、卸载/" class="archive-article-date">
-  	<time datetime="2018-01-25T07:02:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-25</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>MySQL有源码安装、二进制安装、rpm安装三种安装方式。<br>        源码安装方式可用性最大，可以指定安装目录、数据目录等，并且可以自己定制mysql的功能和插件，只安装需要的模块，不需要的模块可以不用安装，例如储存引擎只安装innodb。源码安装过程需cmake编译，较为复杂，并且需要安装一些依赖包。<br>        二进制安装为官方编译，稳定，安装过程相对简单，也可以指定相关目录，移植性高；但不可定制相关功能。<br>        rpm安装最为方便、简单，默认配置，但没有可控性，这里不做描述。</p>
-        
-          <a class="article-more-a" href="/2018/01/25/mysql多种方式安装、升级、卸载/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/database//" class="article-tag-list-link color4">database</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/01/25/mysql多种方式安装、升级、卸载/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
 
 
@@ -605,8 +427,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

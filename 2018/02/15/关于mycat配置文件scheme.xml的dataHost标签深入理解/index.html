@@ -6,15 +6,29 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>HYY</title>
+  <title>关于mycat配置文件scheme.xml的dataHost标签深入理解 | HYY</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="HYY">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="关于mycat配置文件scheme.xml的dataHost标签深入理解">
+<meta name="keywords" content="mycat">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于mycat配置文件scheme.xml的dataHost标签深入理解">
+<meta property="og:url" content="http://yoursite.com/2018/02/15/关于mycat配置文件scheme.xml的dataHost标签深入理解/index.html">
 <meta property="og:site_name" content="HYY">
+<meta property="og:description" content="关于mycat配置文件scheme.xml的dataHost标签深入理解">
 <meta property="og:locale" content="zh-CN.yml">
+<meta property="og:image" content="http://yoursite.com/2018/02/15/关于mycat配置文件scheme.xml的dataHost标签深入理解/image001.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/15/关于mycat配置文件scheme.xml的dataHost标签深入理解/image002.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/15/关于mycat配置文件scheme.xml的dataHost标签深入理解/image003.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/15/关于mycat配置文件scheme.xml的dataHost标签深入理解/image004.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/15/关于mycat配置文件scheme.xml的dataHost标签深入理解/image005.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/15/关于mycat配置文件scheme.xml的dataHost标签深入理解/image006.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/15/关于mycat配置文件scheme.xml的dataHost标签深入理解/image007.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/15/关于mycat配置文件scheme.xml的dataHost标签深入理解/image008.png">
+<meta property="og:updated_time" content="2018-12-20T07:53:23.998Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="HYY">
+<meta name="twitter:title" content="关于mycat配置文件scheme.xml的dataHost标签深入理解">
+<meta name="twitter:description" content="关于mycat配置文件scheme.xml的dataHost标签深入理解">
+<meta name="twitter:image" content="http://yoursite.com/2018/02/15/关于mycat配置文件scheme.xml的dataHost标签深入理解/image001.png">
   
     <link rel="alternative" href="/atom.xml" title="HYY" type="application/atom+xml">
   
@@ -144,104 +158,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-关于keepalived+haproxy+mycat架构深入理解" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+            <article id="post-关于mycat配置文件scheme.xml的dataHost标签深入理解" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/01/关于keepalived+haproxy+mycat架构深入理解/">关于keepalived+haproxy+mycat架构深入理解</a>
-    </h1>
-  
-
-        
-        <a href="/2018/03/01/关于keepalived+haproxy+mycat架构深入理解/" class="archive-article-date">
-  	<time datetime="2018-03-01T10:38:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1、为什么需要haroxy<br>haroxy官方定义如下：<br>HAProxy是一种免费的、非常快速和可靠的解决方案，它提供了高可用性、负载平衡和对TCP和基于http的应用程序的代理。它特别适用于非常高的流量网站，并且拥有相当多的世界上最受欢迎的网站。多年来，它已经成为事实上的标准的opensource负载平衡器，现在已经与大多数主流的Linux发行版一起发布，并且经常在云平台上默认部署</p>
-<p>实际上mycat本身也可以直接搭配keepalived来做高可用，如果不搭配haproxy，那么永远只有一台mycat是可用状态，其他的只是做灾备用。haproxy主要作用是mycat的负载均衡以及高可用。<br>附带一提：haproxy官网默认的下载地址<a href="http://www.haproxy.org/download打不开，网上各种搜到的也不行；于是自己试了加了认证https://www.haproxy.org/download成功打开。" target="_blank" rel="noopener">http://www.haproxy.org/download打不开，网上各种搜到的也不行；于是自己试了加了认证https://www.haproxy.org/download成功打开。</a><br></p>
-        
-          <a class="article-more-a" href="/2018/03/01/关于keepalived+haproxy+mycat架构深入理解/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mycat</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/database//" class="article-tag-list-link color4">database</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/03/01/关于keepalived+haproxy+mycat架构深入理解/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-关于mycat配置文件scheme.xml的dataHost标签深入理解" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/02/15/关于mycat配置文件scheme.xml的dataHost标签深入理解/">关于mycat配置文件scheme.xml的dataHost标签深入理解</a>
+    <h1 class="article-title" itemprop="name">
+      关于mycat配置文件scheme.xml的dataHost标签深入理解
     </h1>
   
 
@@ -255,12 +179,74 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>首先得搞清楚，balance项是控制读而writeType是控制写的，如下图为官方文档截图（有点小问题）</p>
-<p><img src="/2018/02/15/关于mycat配置文件scheme.xml的dataHost标签深入理解/image001.png" alt=""><br></p>
-        
-          <a class="article-more-a" href="/2018/02/15/关于mycat配置文件scheme.xml的dataHost标签深入理解/#more">more >></a>
-        
+<p><img src="/2018/02/15/关于mycat配置文件scheme.xml的dataHost标签深入理解/image001.png" alt=""><br><a id="more"></a></p>
+<p>一、Balance属性</p>
+<p>1、Balance=0时读操作会发往第一个writeHost（不会发readHost），如图读操作是在hostM1上完成的。</p>
+<p><img src="/2018/02/15/关于mycat配置文件scheme.xml的dataHost标签深入理解/image002.png" alt=""> </p>
+<p>2、Balance=1时读操作不会发往第一个writeHost，如图M1不参与读</p>
+<p><img src="/2018/02/15/关于mycat配置文件scheme.xml的dataHost标签深入理解/image003.png" alt=""> </p>
+<p>3、Balance=2时读操作会随机发往writeHost以及 readHost，理论上实现的是负载均衡。4、Balance=3且配置了readHost时读操作会随机发往readHost（不会发writeHost），如图读操作是在S1, S2上完成的</p>
+<p><img src="/2018/02/15/关于mycat配置文件scheme.xml的dataHost标签深入理解/image004.png" alt=""> </p>
+<p>5、Balance=3而没有配置readHost时读操作会发往第一个writeHost，如图读操作是在M1上完成的</p>
+<p><img src="/2018/02/15/关于mycat配置文件scheme.xml的dataHost标签深入理解/image005.png" alt=""> </p>
+<p>二、switchType属性（以mysql双主为例）</p>
+<p>先晒出官网关于switchType属性的说明：</p>
+<p><img src="/2018/02/15/关于mycat配置文件scheme.xml的dataHost标签深入理解/image006.png" alt=""> </p>
+<p>1、当switchType=1时</p>
+<p>以下为模拟搭建时的环境配置情况：</p>
+<p>Master1：192.168.1.202</p>
+<p>Master2：192.168.1.203</p>
+<p>Slave：192.168.1.204</p>
+<p>其中Master1、Master2互为主从，Slave 为Master1的从（记得开启GTID ）</p>
+<p>Mycat的scheme.xml配置如下：</p>
+<p><img src="/2018/02/15/关于mycat配置文件scheme.xml的dataHost标签深入理解/image007.png" alt=""> </p>
+<p>1.1、如果Master1宕机，写操作会切换到Master2，但是Slave无法从Master2同步数据，而此时的读操作还是会发往Slave，导致从Slave上读的数据是不完全的。所以这里要写一个自制change master的脚本（定时往Master1发送心跳包，若检测到心跳失效则Slave直接change master to Master2）</p>
+<p>1.2、接着修复Master1并启动，Master1从Master2同步数据</p>
+<p>PS：个人理解为切换后hostM1跟hostM2互换角色（切换记录为dnindex.properties文件的内容host1=0更改为host1=1），根据balance=1的规则，备用主是可以做为读的，故Master1重新启动后，此时hostM1、hostS1是用作读而hostM2只用作写，始终保持着读写分离。</p>
+<p>1.3、同理，自制change master脚本也要针对Master2，当Master2宕机，Slave直接change master to Master1</p>
+<p>1.4、附上change_master.sh脚本：</p>
+<p>#!/bin/bash</p>
+<p>master_old=”192.168.1.202”<br>master_new=”192.168.1.203”</p>
+<p>#master心跳检测<br>mysql -uroot -p123456 -h$master_old -e “select 1” &gt; /dev/null<br>flag=<code>echo $?</code><br>if [ $flag -eq 1 ];then</p>
+<h1 id="更改主"><a href="#更改主" class="headerlink" title="更改主"></a>更改主</h1><p>mysql -uroot -p123456 -h192.168.1.204 -e “stop slave;change master to master_host=’$master_new’,master_user=’root’,master_password=’123456’,master_port=3306,master_auto_position=1;start slave;”</p>
+<p>#更新脚本持续高可用<br>sed -i ‘s/^master_old/1master_new/‘ /change_master.sh<br>sed -i ‘s/^master_new/master_old/‘ /change_master.sh<br>sed -i ‘s/^1master_new/master_new/‘ /change_master.sh<br>fi</p>
+<p>1.5、由于crontab只能精确到分，所以这里另建一个每8秒循环一次的脚本crontab.sh去跑change_master.sh，如下：</p>
+<p>#!/bin/bash</p>
+<p>while true ;do<br>sh /change_master.sh<br>sleep 8 #每秒执行一次<br>done</p>
+<p>1.6、关于crontab.sh脚本需要注意的几点：</p>
+<p>1.6.1、mycat心跳包频率默认是10秒，所以crontab.sh最好设置小于10秒，防止Master1宕机后，写权限已经切换到备Master2且不可读，而slave还未change master，如果这个时候刚好有写数据传入，就会造成主从不一致，而导致读的数据是不准确的。 </p>
+<p>1.6.2、为防止误操作而导致crontab.sh脚本进程卡顿、停止、死掉等情况出现，运行该脚本的时候要放在后台去运行：sh crontab.sh &amp;</p>
+<p>1.6.3、多个mycat的情况下，每个mycat上面都要运行crontab.sh脚本</p>
+<p>2、当switchType=2时</p>
+<p>Mycat的scheme.xml配置如下：</p>
+<p><img src="/2018/02/15/关于mycat配置文件scheme.xml的dataHost标签深入理解/image008.png" alt=""> </p>
+<p>2.1、如果Master1宕机，读写操作全部切换到Master2，此时读操作也不会发往Slave</p>
+<p>2.2、修复Master1并启动，Master1从Master2同步数据，Slave从Master1同步数据，读数据发往Master1及Slave。</p>
+<p>2.3、这种情况能够完美保障读数据的准确性，但在Master1修复之前，Master2压力会比较大，因为slave全不可读。</p>
+
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -291,16 +277,84 @@
 
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/02/15/关于mycat配置文件scheme.xml的dataHost标签深入理解/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/02/15/关于mycat配置文件scheme.xml的dataHost标签深入理解/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2018/03/01/关于keepalived+haproxy+mycat架构深入理解/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          关于keepalived+haproxy+mycat架构深入理解
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/02/09/mysql误删除数据后的恢复策略/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">mysql误删除数据后的恢复策略</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -320,269 +374,14 @@
 
 
 
-
   
-    <article id="post-mysql误删除数据后的恢复策略" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/02/09/mysql误删除数据后的恢复策略/">mysql误删除数据后的恢复策略</a>
-    </h1>
   
 
-        
-        <a href="/2018/02/09/mysql误删除数据后的恢复策略/" class="archive-article-date">
-  	<time datetime="2018-02-09T01:33:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>一、系统环境配置情况<br>系统环境： Linux 2.6.32-754.3.5.el6.x86_64<br>数据库环境：mysql 5.7.23<br>日志格式： MIXED<br>gtid：启用<br>备份策略：利用xtrabackup每天凌晨00:00自动完全备份<br></p>
-        
-          <a class="article-more-a" href="/2018/02/09/mysql误删除数据后的恢复策略/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/database//" class="article-tag-list-link color4">database</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/02/09/mysql误删除数据后的恢复策略/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-redis安装文档" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/28/redis安装文档/">redis安装文档</a>
-    </h1>
   
 
-        
-        <a href="/2018/01/28/redis安装文档/" class="archive-article-date">
-  	<time datetime="2018-01-28T03:35:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>一、    下载源码包并解压编译<br>redis官网地址：<a href="http://www.redis.io/" target="_blank" rel="noopener">http://www.redis.io/</a><br>tar xf redis-stable.tar.gz<br>cd redis-stable<br>make<br>编译完成后，在src目录下，有3个可执行文件redis-server、redis-benchmark、redis-cli。然后拷贝到redis目录下。<br>mkdir /usr/local/redis<br>cp redis-server redis-benchmark redis-cli /usr/local/redis<br>拷贝配置文件到redis目录下<br>cp  redis.conf  /usr/local/redis<br></p>
-        
-          <a class="article-more-a" href="/2018/01/28/redis安装文档/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/database//" class="article-tag-list-link color4">database</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/01/28/redis安装文档/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-mysql多种方式安装、升级、卸载" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/25/mysql多种方式安装、升级、卸载/">mysql多种方式安装、升级、卸载</a>
-    </h1>
   
 
-        
-        <a href="/2018/01/25/mysql多种方式安装、升级、卸载/" class="archive-article-date">
-  	<time datetime="2018-01-25T07:02:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-25</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>MySQL有源码安装、二进制安装、rpm安装三种安装方式。<br>        源码安装方式可用性最大，可以指定安装目录、数据目录等，并且可以自己定制mysql的功能和插件，只安装需要的模块，不需要的模块可以不用安装，例如储存引擎只安装innodb。源码安装过程需cmake编译，较为复杂，并且需要安装一些依赖包。<br>        二进制安装为官方编译，稳定，安装过程相对简单，也可以指定相关目录，移植性高；但不可定制相关功能。<br>        rpm安装最为方便、简单，默认配置，但没有可控性，这里不做描述。</p>
-        
-          <a class="article-more-a" href="/2018/01/25/mysql多种方式安装、升级、卸载/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/database//" class="article-tag-list-link color4">database</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/01/25/mysql多种方式安装、升级、卸载/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
 
 
@@ -605,8 +404,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
