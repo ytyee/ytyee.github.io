@@ -6,15 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Category: database | HYY</title>
+  <title>mysql误删除数据后的恢复策略 | HYY</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="HYY">
-<meta property="og:url" content="http://yoursite.com/categories/database/index.html">
+  <meta name="description" content="mysql误删除数据后的恢复策略">
+<meta name="keywords" content="mysql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql误删除数据后的恢复策略">
+<meta property="og:url" content="http://yoursite.com/2018/02/09/mysql误删除数据后的恢复策略/index.html">
 <meta property="og:site_name" content="HYY">
+<meta property="og:description" content="mysql误删除数据后的恢复策略">
 <meta property="og:locale" content="zh-CN.yml">
+<meta property="og:image" content="http://yoursite.com/2018/02/09/mysql误删除数据后的恢复策略/image001.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/09/mysql误删除数据后的恢复策略/image002.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/09/mysql误删除数据后的恢复策略/image003.png">
+<meta property="og:updated_time" content="2018-12-20T07:31:01.420Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="HYY">
+<meta name="twitter:title" content="mysql误删除数据后的恢复策略">
+<meta name="twitter:description" content="mysql误删除数据后的恢复策略">
+<meta name="twitter:image" content="http://yoursite.com/2018/02/09/mysql误删除数据后的恢复策略/image001.png">
   
     <link rel="alternative" href="/atom.xml" title="HYY" type="application/atom+xml">
   
@@ -144,36 +153,68 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-mysql误删除数据后的恢复策略" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      mysql误删除数据后的恢复策略
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/02/09/mysql误删除数据后的恢复策略/" class="archive-article-date">
+
+        
+        <a href="/2018/02/09/mysql误删除数据后的恢复策略/" class="archive-article-date">
   	<time datetime="2018-02-09T01:02:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-09</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/02/09/mysql误删除数据后的恢复策略/">mysql误删除数据后的恢复策略</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>一、系统环境配置情况<br>系统环境： Linux 2.6.32-754.3.5.el6.x86_64<br>数据库环境：mysql 5.7.23<br>日志格式： MIXED<br>gtid：启用<br>备份策略：利用xtrabackup每天凌晨00:00自动完全备份<br><a id="more"></a></p>
+<p>二、模拟场景<br>某技术人员在上午10点不小心trancate了一个表，上午11点发现了异常需紧急恢复被删除的数据。</p>
+<p>三、数据恢复思路<br>因为凌晨全备后到误操作这段时间（凌晨00：00到上午10：00）以及误操作到被发现准备紧急恢复这段时间（上午10：00到上午11：00），数据库都可能发生了更新，所以必须依靠全备数据配合binlog来做数据恢复，还需要注意binlog在这两个时间段内是否发生滚动的情况。</p>
+<p>四、实操(binlog文件未发生滚动的情况)<br>1、停止mysqld服务<br>service mysqld stop</p>
+<p>2、利用mysqlbinlog命令将对应的binlog文件导出为sql文件<br>mysqlbinlog log-bin.000034 &gt; log-bin34.sql</p>
+<p>3、找出truncate语句对应的内容，并将其删除，如图：</p>
+<p><img src="/2018/02/09/mysql误删除数据后的恢复策略/image001.png" alt=""> </p>
+<p>4、利用当天凌晨全备的xtrabackup_info信息找到备份时对应的pso值，如图：</p>
+<p><img src="/2018/02/09/mysql误删除数据后的恢复策略/image002.png" alt=""> </p>
+<p>5、在上述的log-bin34.sql文件中找出end_log_pos 6044对应的位置并删除该值以及该值之前的所有语句，如图：</p>
+<p><img src="/2018/02/09/mysql误删除数据后的恢复策略/image003.png" alt="">  </p>
+<p>6、利用innobackupex正常恢复数据库状态到全备那一刻的所有数据<br>清除mysql数据目录(最好备份)：rm –rf /mysql/data/*<br>prepare操作：innobackupex –apply-log –use-memory=4G /backup/2018-12-19_00-00-00/<br>全备恢复（恢复完后要把数据目录的所属用户和组设置回mysql）：innobackupex –datadir=/mysql/data –copy-back /backup/2018-12-19_00-00-00/</p>
+<p>7、启动mysql直接执行上述处理好的sql文件即可恢复数据<br>service mysqld start<br>mysql –utest –p123456 –e ‘source /log-bin34.sql ‘</p>
 
-        <div class="article-info info-on-right">
-          
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -185,7 +226,7 @@
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -198,115 +239,104 @@
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/02/09/mysql误删除数据后的恢复策略/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/01/28/redis安装文档/" class="archive-article-date">
-  	<time datetime="2018-01-28T03:35:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-28</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2018/01/28/redis安装文档/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">redis安装文档</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/01/28/redis安装文档/">redis安装文档</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/database//" class="article-tag-list-link color4">database</a>
-        		</li>
-      		
-		</ul>
-	</div>
+        
+        
+    </div>
+</aside>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/01/25/mysql多种方式安装、升级、卸载/" class="archive-article-date">
-  	<time datetime="2018-01-25T07:02:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/01/25/mysql多种方式安装、升级、卸载/">mysql多种方式安装、升级、卸载</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/database//" class="article-tag-list-link color4">database</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
   
-    </div></section>
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -329,10 +359,10 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
-		isCategory: true,
+		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
 		root: "/",
