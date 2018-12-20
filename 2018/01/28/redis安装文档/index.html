@@ -6,32 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>mysql多种方式安装、升级、卸载 | HYY</title>
+  <title>redis安装文档 | HYY</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="源码安装方式可用性最大，可以指定安装目录、数据目录等，并且可以自己定制mysql的功能和插件，只安装需要的模块，不需要的模块可以不用安装，例如储存引擎只安装innodb。源码安装过程需cmake编译，较为复杂，并且需要安装一些依赖包。">
+  <meta name="description" content="redis安装文档">
 <meta name="keywords" content="mysql">
 <meta property="og:type" content="article">
-<meta property="og:title" content="mysql多种方式安装、升级、卸载">
-<meta property="og:url" content="http://yoursite.com/2018/01/25/mysql多种方式安装、升级、卸载/index.html">
+<meta property="og:title" content="redis安装文档">
+<meta property="og:url" content="http://yoursite.com/2018/01/28/redis安装文档/index.html">
 <meta property="og:site_name" content="HYY">
-<meta property="og:description" content="源码安装方式可用性最大，可以指定安装目录、数据目录等，并且可以自己定制mysql的功能和插件，只安装需要的模块，不需要的模块可以不用安装，例如储存引擎只安装innodb。源码安装过程需cmake编译，较为复杂，并且需要安装一些依赖包。">
+<meta property="og:description" content="redis安装文档">
 <meta property="og:locale" content="zh-CN.yml">
-<meta property="og:image" content="http://yoursite.com/2018/01/25/mysql多种方式安装、升级、卸载/image001.png">
-<meta property="og:image" content="http://yoursite.com/2018/01/25/mysql多种方式安装、升级、卸载/image002.png">
-<meta property="og:image" content="http://yoursite.com/2018/01/25/mysql多种方式安装、升级、卸载/image003.png">
-<meta property="og:image" content="http://yoursite.com/2018/01/25/mysql多种方式安装、升级、卸载/image004.png">
-<meta property="og:image" content="http://yoursite.com/2018/01/25/mysql多种方式安装、升级、卸载/image005.png">
-<meta property="og:image" content="http://yoursite.com/2018/01/25/mysql多种方式安装、升级、卸载/image006.png">
-<meta property="og:image" content="http://yoursite.com/2018/01/25/mysql多种方式安装、升级、卸载/image007.png">
-<meta property="og:image" content="http://yoursite.com/2018/01/25/mysql多种方式安装、升级、卸载/image008.png">
-<meta property="og:image" content="http://yoursite.com/2018/01/25/mysql多种方式安装、升级、卸载/image009.png">
-<meta property="og:image" content="http://yoursite.com/2018/01/25/mysql多种方式安装、升级、卸载/image010.png">
-<meta property="og:image" content="http://yoursite.com/2018/01/25/mysql多种方式安装、升级、卸载/image011.png">
-<meta property="og:updated_time" content="2018-10-26T02:57:47.954Z">
+<meta property="og:image" content="http://yoursite.com/2018/01/28/redis安装文档/image001.png">
+<meta property="og:image" content="http://yoursite.com/2018/01/28/redis安装文档/image002.png">
+<meta property="og:updated_time" content="2018-12-20T07:07:45.276Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="mysql多种方式安装、升级、卸载">
-<meta name="twitter:description" content="源码安装方式可用性最大，可以指定安装目录、数据目录等，并且可以自己定制mysql的功能和插件，只安装需要的模块，不需要的模块可以不用安装，例如储存引擎只安装innodb。源码安装过程需cmake编译，较为复杂，并且需要安装一些依赖包。">
-<meta name="twitter:image" content="http://yoursite.com/2018/01/25/mysql多种方式安装、升级、卸载/image001.png">
+<meta name="twitter:title" content="redis安装文档">
+<meta name="twitter:description" content="redis安装文档">
+<meta name="twitter:image" content="http://yoursite.com/2018/01/28/redis安装文档/image001.png">
   
     <link rel="alternative" href="/atom.xml" title="HYY" type="application/atom+xml">
   
@@ -161,36 +152,36 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-mysql多种方式安装、升级、卸载" class="article article-type-post " itemscope="" itemprop="blogPost">
+            <article id="post-redis安装文档" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      mysql多种方式安装、升级、卸载
+      redis安装文档
     </h1>
   
 
         
-        <a href="/2018/01/25/mysql多种方式安装、升级、卸载/" class="archive-article-date">
-  	<time datetime="2018-01-25T07:02:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-25</time>
+        <a href="/2018/01/28/redis安装文档/" class="archive-article-date">
+  	<time datetime="2018-01-28T07:02:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-28</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>MySQL有源码安装、二进制安装、rpm安装三种安装方式。<br>        源码安装方式可用性最大，可以指定安装目录、数据目录等，并且可以自己定制mysql的功能和插件，只安装需要的模块，不需要的模块可以不用安装，例如储存引擎只安装innodb。源码安装过程需cmake编译，较为复杂，并且需要安装一些依赖包。<br>        二进制安装为官方编译，稳定，安装过程相对简单，也可以指定相关目录，移植性高；但不可定制相关功能。<br>        rpm安装最为方便、简单，默认配置，但没有可控性，这里不做描述。</p>
-<a id="more"></a>
-<p>一、mysql_5.7二进制安装<br>1、下载mysql glibc版压缩包</p>
-<p><img src="/2018/01/25/mysql多种方式安装、升级、卸载/image001.png" alt=""></p>
-<p>2、解压、移动到/usr/local/mysql，并创建mysql用户和组<br>tar -xzvf mysql-5.7.23-linux-glibc2.12-x86_64.tar.gz<br>mv ./mysql-5.7.23-linux-glibc2.12-x86_64 /usr/local/mysql<br>groupadd mysql<br>useradd -r -g mysql -s /bin/false mysql<br>3、设置目录权限<br>cd /usr/local/mysql/<br>chown -R mysql:mysql ./<br>4、查看数据库服务相关目录，修改配置文件<br>cp /usr/local/mysql/support-files/my-default.cnf /etc/my.cnf<br><img src="/2018/01/25/mysql多种方式安装、升级、卸载/image002.png" alt=""><br>5、配置mysql服务脚本<br>cp /usr/local/mysql/support-files/mysql.server /etc/init.d/mysqld<br>修改basedir、 datadir、 pid_file 三个路径与my.cnf对应<br>6、初始化系统数据库和系统表<br>bin/mysqld –defaults-file=/etc/my.cnf –initialize –user=mysql<br>（5.7.6之前的版本使用scripts/mysql_install_db –user=mysql）<br>如图的官方文档相关说明：<br><img src="/2018/01/25/mysql多种方式安装、升级、卸载/image003.png" alt=""><br>–initialize  #初始化密码，会输出到屏幕上<br>可能报错：<br>FATAL ERROR: please install the following Perl m odules before executing scripts/mysql_install_db:<br>   Data::Dumper<br>解决方法：yum -y install autoconf<br>7、启动数据库<br>bin/mysqld_safe –user=mysql &amp;<br>可能报错：<br>Starting MySQL….. ERROR! The server quit without updating PID file (/usr/local/mysql/data/mysqld.pid)<br>原因：mysql没有对mysql主目录取得完全权限<br>解决方法：chown -R mysql:mysql /usr/local/mysql<br>8、添加mysql服务至服务列表<br>chkconfig –add mysqld<br>chkconfig mysqld on<br>9、将mysql/bin目录命令添加到全局路径参数path<br><img src="/2018/01/25/mysql多种方式安装、升级、卸载/image004.png" alt=""><br>使配置立即生效<br>source /etc/profile<br>10、添加服务自启动<br>将service mysqld start 添加至文件 /etc/rc.local<br>11、登录<br>第一次登录可能会报错：<br>ERROR 1862 (HY000): Your password has expired. To log in you must change it using a client that supports expired passwords.<br>意思是初始化的密码已过期<br>解决步骤：<br>编辑配置文件，在[mysqld]加上skip-grant-tables（即不启用授权表），重启mysqld<br><img src="/2018/01/25/mysql多种方式安装、升级、卸载/image005.png" alt=""><br>成功登录后把root密码改为不过期：<br>update mysql.user set password_expired=’N’ where user=’root’;<br>再次编辑配置文件把skip-grant-tables去掉<br>登录修改root密码：<br>set password for ‘root‘@localhost = PASSWORD(‘密码’);<br>PS：可以在启动时加上该参数：bin/mysqld_safe –user=mysql –skip-grant-tables &amp;<br>而不用更改配置文件且无需重启</p>
-<p>二、mysql_5.7源码安装<br>从mysql5.5起，mysql源码安装的编译工具configure开始向cmake过渡；我这里也没去研究为什么要用cmake，反正它就代替之前的configure做一些安装前的检查、配置等一系列工作。<br>1、准备工作<br>1.1、安装依赖包<br>yum install ncurses-devel libaio-devel gcc gcc-c++ bison -y<br>1.2、安装cmake编译工具<br>yum install cmake –y<br>1.3、创建MySQL用户和组<br>groupadd mysql<br>useradd -r -g mysql -s /bin/false mysql<br>1.4、创建boost库目录，cmake编译时需要用到<br>mkdir –p /usr/local/boost<br>2、官网下载源码安装包mysql-5.7.23.tar.gz<br><img src="/2018/01/25/mysql多种方式安装、升级、卸载/image006.png" alt=""><br><img src="/2018/01/25/mysql多种方式安装、升级、卸载/image007.png" alt=""><br>3、解压进到该目录使用cmake编译<br>tar –zxvf mysql-5.7.23.tar.gz<br>cd mysql-5.7.23<br>开始编译：<br>cmake . -DCMAKE_INSTALL_PREFIX=/usr/local/mysql \<br>-DMYSQL_DATADIR=/data/mydata \<br>-DSYSCONFDIR=/etc \<br>-DMYSQL_UNIX_ADDR=/var/lib/mysql/mysql.sock \<br>-DWITH_INNOBASE_STORAGE_ENGINE=1 \<br>-DWITH_MYISAM_STORAGE_ENGINE=1 \<br>-DWITH_SSL=system \<br>-DWITH_ZLIB=system \<br>-DDEFAULT_CHARSET=utf8 \<br>-DDEFAULT_COLLATION=utf8_general_ci \<br>-DDOWNLOAD_BOOST=1 \<br>-DWITH_BOOST=/usr/local/boost</p>
-<p>部分选项说明：<br>-DCMAKE_INSTALL_PREFIX=/usr/local/mysql \       #（mysql主目录）<br>-DMYSQL_DATADIR=/data/mydata \                #（mysql数据目录）<br>-DSYSCONFDIR=/etc \                           #（mysql配置文件目录）<br>-DMYSQL_UNIX_ADDR= /var/lib/mysql/mysql.sock \     #（mysql.sock绝对路径名,默认是/tmp/mysql.sock）<br>-DWITH_INNOBASE_STORAGE_ENGINE=1 \       #（编译安装INNODB存储引擎）<br>-DWITH_MYISAM_STORAGE_ENGINE=1 \       #（编译安装MYISAM存储引擎）<br>-DWITH_READLINE=1 \       #（启用readline 库的支持提供可供编辑的命令行）<br>-DWITH_SSL=system \       # （SSL支持的类型，这里使用系统的OpenSSL库）<br>-DWITH_ZLIB=system \       #（zlib支持类型，这里使用系统的zlib库）<br>-DDEFAULT_CHARSET=utf8 \             #（默认字符集） -DDEFAULT_COLLATION=utf8_general_ci \   #（默认字符编码）<br>-DDOWNLOAD_BOOST=1 \     #（是否下载Boost源（如果它不在指定位置），默认是 OFF）<br>-DWITH_BOOST=/usr/local/boost   #（指定Boost库目录位置）</p>
-<p>关于这些选项的官方说明：<br><a href="https://dev.mysql.com/doc/refman/5.7/en/source-configuration-options.html#option_cmake_mysql_unix_addr" target="_blank" rel="noopener">https://dev.mysql.com/doc/refman/5.7/en/source-configuration-options.html#option_cmake_mysql_unix_addr</a><br>4、编译并安装<br>make &amp;&amp; make install<br>5、配置、初始化、启动过程到最后的登录参考上述二进制安装的3-11步骤，这里就不再做描述。</p>
-<p>三、源码及二进制安装的mysql5.6升级到5.7<br>    如果没有数据，可直接卸载重新安装即可。想要不丢失数据顺利升级，只要备份好原数据目录就不会有什么问题。源码跟二进制的升级方式基本一样，区别只在于源码需要编译而二进制只需解压即可。<br>先晒出官方说明：<br><img src="/2018/01/25/mysql多种方式安装、升级、卸载/image008.png" alt=""><br>1、关闭mysql服务进程<br>service mysqld stop<br>2、备份原mysql主目录<br>mv /usr/local/mysql /usr/local/mysql_back<br>3-（二进制）、解压5.7二进制包使之成为新的mysql主目录<br>tar -xzvf mysql-5.7.23-linux-glibc2.12-x86_64.tar.gz<br>mv ./mysql-5.7.23-linux-glibc2.12-x86_64 /usr/local/mysql<br>3-（源码）、解压5.7源码安装包做cmake、make &amp;&amp; make install生成新的mysql主目录<br>tar –zxvf mysql-5.7.23.tar.gz<br>cd mysql-5.7.23<br>cmake …<br>make &amp;&amp; make install<br>4、拷贝原数据目录到新mysql主目录，并设置目录权限<br>cp -R /usr/local/mysql_back/data /usr/local/mysql/<br>cd /usr/local/mysql/<br>chown -R mysql:mysql .<br>（PS：mysql5.7若开启log-bin必需在配置文件加上server-id）<br>5、启动mysql服务，并使用mysql_upgrade更新升级<br>bin/mysqld_safe –user=mysql &amp;<br>./bin/mysql_upgrade -uroot<br>6、升级完成后在数据目录下会生成mysql_upgrade_info，确定升级无误后可删除原数据库目录<br><img src="/2018/01/25/mysql多种方式安装、升级、卸载/image009.png" alt=""><br>rm -rf  /usr/local/mysql_back<br>7、可能会出现的一些问题<br>7.1查看二进制日志时报错：ERROR: Error in Log_event::read_log_event(): ‘Sanity check failed’, data_len: 31, event_type: 35<br>问题分析：系统默认用的mysqlbinlog绝对路径为/usr/bin/mysqlbinlog，跟更新后的/usr/local/mysql/bin/mysqlbinlog版本不一致，如图一个为3.3一个为3.4：<br><img src="/2018/01/25/mysql多种方式安装、升级、卸载/image010.png" alt=""><br><img src="/2018/01/25/mysql多种方式安装、升级、卸载/image011.png" alt=""><br>解决方法：覆盖掉旧版本的mysqlbinlog<br>cp /usr/local/mysql/bin/mysqlbinlog /usr/bin/mysqlbinlog</p>
-<p>四、卸载二进制及源码安装的mysql<br>1、关闭mysql服务进程<br>service mysqld stop<br>2、删除mysql主目录、配置文件、启动文件<br>rm -rf /usr/local/mysql/<br>rm -rf /etc/my.cnf<br>rm -rf /etc/init.d/mysqld<br>3、删除mysql用户<br>userdel –r mysql</p>
+        <p>一、    下载源码包并解压编译<br>redis官网地址：<a href="http://www.redis.io/" target="_blank" rel="noopener">http://www.redis.io/</a><br>tar xf redis-stable.tar.gz<br>cd redis-stable<br>make<br>编译完成后，在src目录下，有3个可执行文件redis-server、redis-benchmark、redis-cli。然后拷贝到redis目录下。<br>mkdir /usr/local/redis<br>cp redis-server redis-benchmark redis-cli /usr/local/redis<br>拷贝配置文件到redis目录下<br>cp  redis.conf  /usr/local/redis<br><a id="more"></a></p>
+<p>二、    启动与关闭服务<br>启动redis服务：<br>cd /usr/local/redis<br>./redis-server ./redis.conf<br>不加redis.conf则使用安装目录的默认配置文件启动<br>后台启动要把daemonize改为yes</p>
+<p><img src="/2018/01/28/redis安装文档/image001.png" alt=""> </p>
+<p>关闭redis服务：<br>redis-cli shutdown（有密码的情况为：redis-cli shutdown -a 密码 shutdown）</p>
+<p>三、    客户端连接及基本操作<br>本地连接：redis-cli<br>远程连接：./redis-cli -h host -p port -a password<br>（远程连接需关闭连接限制：编辑redis.conf，找到bind 127.0.0.1注释掉）<br>redis默认是无需密码登录的，开启密码需编辑redis.conf，添加requirepass “密码”</p>
+<p><img src="/2018/01/28/redis安装文档/image002.png" alt="">  </p>
+<p>创建名为name值为hyy的key：set name hyy<br>删除名为name的key：del name<br>查询所有的key：keys *<br>查询当前版本：info</p>
+<p>四、    遇到的一些问题<br>1、浏览器访问应用服务时，报Could not get a resource from the pool ，网上有很多报错原因和解决方法，需要对应的情况才能有效解决。这里最终是发现，应用程序中的redis连接配置文件中指定的ip地址还是原内网redis, 修改该ip为新的redis服务器地址，问题解决。</p>
+<p>2、报错：(error) MISCONF Redis is configured to save RDB snapshots, but it is currently not able to persist on disk. Commands that may modify the data set are disabled, because this instance is configured to report errors during writes if RDB snapshotting fails (stop-writes-on-bgsave-error option). Please check the Redis logs for details about the RDB error.<br>原因：强制关闭Redis快照导致不能持久化。<br>解决方法：127.0.0.1:6379&gt; config set stop-writes-on-bgsave-error no</p>
+<p>3、主从复制不成功，从库报错：Opening the temp file needed for MASTER <-> SLAVE synchronization: Permission denied<br>原因：多半是因为从库上启动redis-server时不是root用户启动，而普通用户无法对redis目录进行写操作，导致无法在redis目录产生dump.rdb<br>解决方法：<br>1、从库上用root启动redis<br>2、更改redis目录为启动用户可写</-></p>
 
       
 
@@ -292,7 +283,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/01/25/mysql多种方式安装、升级、卸载/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/01/28/redis安装文档/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -306,15 +297,11 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/01/28/redis安装文档/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          redis安装文档
-        
-      </div>
-    </a>
   
+    <a href="/2018/01/25/mysql多种方式安装、升级、卸载/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">mysql多种方式安装、升级、卸载</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 
