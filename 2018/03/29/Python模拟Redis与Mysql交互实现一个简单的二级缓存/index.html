@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2018 | HYY</title>
+  <title>Python模拟Redis与Mysql交互实现一个简单的二级缓存 | HYY</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="HYY">
-<meta property="og:url" content="http://yoursite.com/archives/2018/index.html">
+  <meta name="description" content="Python模拟Redis与Mysql交互实现一个简单的二级缓存">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python模拟Redis与Mysql交互实现一个简单的二级缓存">
+<meta property="og:url" content="http://yoursite.com/2018/03/29/Python模拟Redis与Mysql交互实现一个简单的二级缓存/index.html">
 <meta property="og:site_name" content="HYY">
+<meta property="og:description" content="Python模拟Redis与Mysql交互实现一个简单的二级缓存">
 <meta property="og:locale" content="zh-CN.yml">
+<meta property="og:updated_time" content="2018-12-26T02:41:47.177Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="HYY">
+<meta name="twitter:title" content="Python模拟Redis与Mysql交互实现一个简单的二级缓存">
+<meta name="twitter:description" content="Python模拟Redis与Mysql交互实现一个简单的二级缓存">
   
     <link rel="alternative" href="/atom.xml" title="HYY" type="application/atom+xml">
   
@@ -144,36 +149,63 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Python模拟Redis与Mysql交互实现一个简单的二级缓存" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/03/29/Python模拟Redis与Mysql交互实现一个简单的二级缓存/" class="archive-article-date">
-  	<time datetime="2018-03-29T01:25:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-29</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/03/29/Python模拟Redis与Mysql交互实现一个简单的二级缓存/">Python模拟Redis与Mysql交互实现一个简单的二级缓存</a>
+    <h1 class="article-title" itemprop="name">
+      Python模拟Redis与Mysql交互实现一个简单的二级缓存
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2018/03/29/Python模拟Redis与Mysql交互实现一个简单的二级缓存/" class="archive-article-date">
+  	<time datetime="2018-03-29T01:25:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-29</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>基本逻辑：<br>1、先查询Redis是否存在目标数据，存在即输出，不存在则查询Mysql；<br>2、从mysql取出目标数据存入Redis后设置过期时间，输出目标数据。<br><a id="more"></a></p>
+<p>mysql目标数据结构：<br>CREATE DATABASE hyy_db;</p>
+<p>CREATE TABLE hyy_tab(id INT NOT NULL AUTO_INCREMENT COMMENT ‘id’,<br>  NAME VARCHAR(20) COMMENT ‘名字’,<br>  create_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT ‘创建时间’,<br>  PRIMARY KEY (<code>id</code>)<br>)ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8; </p>
+<p>INSERT INTO hyy_tab(NAME) VALUES (‘Tom’),(‘Jerry’);</p>
+<p>python脚本：</p>
+<h1 id="coding-utf-8"><a href="#coding-utf-8" class="headerlink" title="-- coding: utf-8 --"></a>-<em>- coding: utf-8 -</em>-</h1><p>import pymysql<br>import redis<br>import sys<br>import os</p>
+<p>def main():<br>    args = sys.argv<br>    input_name = args[1] #传入值<br>    pool = redis.ConnectionPool(host=’192.168.1.100’,port=6379,password=123456)<br>    r = redis.Redis(connection_pool=pool)<br>    name = r.lindex(input_name,1)<br>    if name != None:  #如果该值存在redis，则输出结果<br>        for i in range(3):<br>            print(r.lindex(input_name,i).decode(“utf-8”))<br>    else: #该值不存在redis，从mysql获取，并输出结果<br>        r.expire(“list_info”,0) #删除临时list<br>        conn=pymysql.connect(host=”192.168.1.100”,port=3306, user=”expertol_admin”,passwd=”M09plxmGVNpUx8UOhDbNPQApHCXdDA”,db=”hyy_db”)<br>        cursor = conn.cursor()<br>        cursor.execute(‘select * from hyy_tab where name = %s’,(input_name))<br>        cur_all = cursor.fetchall() #返回mysql结果集<br>        if cur_all == ():<br>            print(‘%s does not exist in the target table!’ %input_name)<br>            os._exit(0) #如果值不存在于mysql即退出<br>        for cur in cur_all:<br>            for c in cur:<br>                r.rpush(“list_info”,str(c)) #创建临时list<br>            list_name = r.lindex(“list_info”,1).decode(“utf-8”)<br>            for i in range(3):<br>                r.rpush(list_name,r.lindex(“list_info”,i).decode(“utf-8”))<br>                print(r.lindex(“list_info”,i).decode(“utf-8”))<br>        r.expire(input_name,10) #过期时间            </p>
+<p>if <strong>name</strong> == “<strong>main</strong>“:<br>    main()</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -185,7 +217,7 @@
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -198,262 +230,104 @@
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/03/29/Python模拟Redis与Mysql交互实现一个简单的二级缓存/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/03/01/关于keepalived+haproxy+mycat架构深入理解/" class="archive-article-date">
-  	<time datetime="2018-03-01T10:38:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-01</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2018/03/01/关于keepalived+haproxy+mycat架构深入理解/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">关于keepalived+haproxy+mycat架构深入理解</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/03/01/关于keepalived+haproxy+mycat架构深入理解/">关于keepalived+haproxy+mycat架构深入理解</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mycat</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/database//" class="article-tag-list-link color4">database</a>
-        		</li>
-      		
-		</ul>
-	</div>
+        
+        
+    </div>
+</aside>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/02/15/关于mycat配置文件scheme.xml的dataHost标签深入理解/" class="archive-article-date">
-  	<time datetime="2018-02-15T12:20:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/02/15/关于mycat配置文件scheme.xml的dataHost标签深入理解/">关于mycat配置文件scheme.xml的dataHost标签深入理解</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mycat</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/database//" class="article-tag-list-link color4">database</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/02/09/mysql误删除数据后的恢复策略/" class="archive-article-date">
-  	<time datetime="2018-02-09T01:33:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/02/09/mysql误删除数据后的恢复策略/">mysql误删除数据后的恢复策略</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/database//" class="article-tag-list-link color4">database</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/01/28/redis安装文档/" class="archive-article-date">
-  	<time datetime="2018-01-28T03:35:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/01/28/redis安装文档/">redis安装文档</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/database//" class="article-tag-list-link color4">database</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/01/25/mysql多种方式安装、升级、卸载/" class="archive-article-date">
-  	<time datetime="2018-01-25T07:02:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/01/25/mysql多种方式安装、升级、卸载/">mysql多种方式安装、升级、卸载</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/database//" class="article-tag-list-link color4">database</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
   
-    </div></section>
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -476,8 +350,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
